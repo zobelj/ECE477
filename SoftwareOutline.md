@@ -2,7 +2,7 @@
 
 This file is meant to serve as a general outline of the software running on the microcontrollers.
 
-In its current state, only an overview of the keyboard input is included.
+In its current state, only an outline of the keyboard input is included but will be updated to describe LCD functions, etc.
 
 
 ## Keyboard Input
@@ -31,7 +31,7 @@ Global variables:
 - `TIMx_IRQHandler()` will do the following:
   - Acknowledge the interrupt
   - Check for columns that are activated (`get_cols()`)
-  - Update the `queue` variable with any keys pressed between `send_data()` calls
+  - Update the `queue` variable with any keys that were pressed between `send_data()` calls
   - Change the row currently set (`set_rows()`)
 - `send_data()` sends the queue to the host PC at a frequency of 1000Hz (polling rate)
   - resets `queue`, prepares for next packet
@@ -45,8 +45,8 @@ Global variables:
   - waits for the interrupt to update the queue
   - converts the row-column value in queue to a key (switch case)
   - returns the key being pressed
-  - Is this useful for our keyboard? I don't think we should have a `get_key()` function
-  - This funcitonality should probably exist in the `send_data()` function or in `main()`
+  - *Is this useful for our keyboard? I don't think we should have a `get_key()` function*
+  - *This funcitonality should probably exist in the `send_data()` function or in `main()`*
 - `TIMx_IRQHandler()`
   - runs `get_cols()`
   - figures out what key is being pressed
