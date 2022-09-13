@@ -1361,7 +1361,7 @@
     (uuid 32e47a76-efcc-4321-957a-817d9655f2fe)
     (property "Reference" "J1" (id 0) (at 219.075 85.09 0))
     (property "Value" "Conn_01x08_Male" (id 1) (at 219.075 87.63 0))
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" (id 2) (at 218.44 97.79 0)
+    (property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x08_P1.00mm_Vertical" (id 2) (at 218.44 97.79 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 218.44 97.79 0)
@@ -1431,7 +1431,7 @@
       (reference "D16") (unit 1) (value "D") (footprint "keyboard_parts:D_SOD123_axial")
     )
     (path "/32e47a76-efcc-4321-957a-817d9655f2fe"
-      (reference "J1") (unit 1) (value "Conn_01x08_Male") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical")
+      (reference "J1") (unit 1) (value "Conn_01x08_Male") (footprint "Connector_PinHeader_1.00mm:PinHeader_1x08_P1.00mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00006051f173"
       (reference "K0") (unit 1) (value "KEYSW") (footprint "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB")
