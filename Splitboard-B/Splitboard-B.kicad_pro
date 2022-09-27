@@ -364,11 +364,11 @@
   "pcbnew": {
     "last_paths": {
       "gencad": "",
-      "idf": "",
+      "idf": "Splitboard-B.emn",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
-      "vrml": ""
+      "step": "Splitboard-B.step",
+      "vrml": "Splitboard-B.wrl"
     },
     "page_layout_descr_file": ""
   },

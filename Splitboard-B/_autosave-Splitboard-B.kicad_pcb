@@ -3103,7 +3103,7 @@
 
   (footprint "MountingHole:MountingHole_2.7mm" (layer "F.Cu")
     (tedit 56D1B4CB) (tstamp bea63455-9f8b-4f09-b28f-8b846fafb778)
-    (at 133.49 186.63)
+    (at 149.86 205.74)
     (descr "Mounting Hole 2.7mm, no annular")
     (tags "mounting hole 2.7mm no annular")
     (property "Sheetfile" "Splitboard-B.kicad_sch")

@@ -368,7 +368,7 @@
       "idf": "",
       "netlist": "KBT1.net",
       "specctra_dsn": "",
-      "step": "",
+      "step": "KBT1.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
