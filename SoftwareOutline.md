@@ -4,6 +4,8 @@ This file is meant to serve as a general outline of the software running on the 
 
 In its current state, only an outline of the keyboard input is included but will be updated to describe LCD functions, etc.
 
+NOTE: When wiring the 4x4 test PCB, the columns are the left 4 pins and the rows are the right 4 pins. The columns should be pulled high.
+
 
 ## Keyboard Input
 
