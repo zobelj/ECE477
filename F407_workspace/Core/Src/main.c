@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 
 #include "usbd_hid.h"
+#include "keycodes.h"
 
 /* USER CODE END Includes */
 
@@ -34,6 +35,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define KEYCODE_LIMIT 6
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,9 +54,7 @@ TIM_HandleTypeDef htim6;
 int currentStateCLK;
 int lastStateCLK;
 int currentStateDT;
-
-int state;
-int lastState;
+int rotLock;
 
 int keycodeNum;
 
@@ -66,19 +67,17 @@ int row;
    1 2 3 .
    < ^ v > 
 */
-const uint8_t keys[5][4] =  {{0x24, 0x25, 0x26, 0x2C},
-                         	   {0x21, 0x22, 0x23, 0x1A},
-							               {0x1E, 0x1F, 0x20, 0x37},
-							               {0x50, 0x52, 0x51, 0x4F},
-                             {0x7F, 0x81, 0x80, 0x00},
-								};
+const uint8_t keys[5][4] =  {{KEY_7, KEY_8, KEY_9, KEY_SPACE},
+                             {KEY_4, KEY_5, KEY_6, KEY_W},
+                             {KEY_1, KEY_2, KEY_3, KEY_PERIOD},
+                             {KEY_LEFT, KEY_UP, KEY_DOWN, KEY_RIGHT},
+                             {KEY_MUTE, KEY_VOLDOWN, KEY_VOLUP, 0}};
 
 char keypresses[5][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0},
-						             {0, 0, 0 ,0}
-                        };
+                         {0, 0, 0, 0}};
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
@@ -153,7 +152,7 @@ int get_cols() {
 }
 
 void add_keypress(char key) {
-	if(keycodeNum < 7) {
+	if(keycodeNum <= KEYCODE_LIMIT) {
 	  switch(keycodeNum) {
 		case 1:
 		  keyboardhid.KEYCODE1 = key;
@@ -188,7 +187,7 @@ void record_keys() {
   for(int i = 0; i < 5; i++) {
     for(int j = 0; j < 4; j++) {
       if(keypresses[i][j] == 1) {
-        add_keypress(keys[i][j]);
+    	  add_keypress(keys[i][j]);
       }
     }
   }
@@ -235,12 +234,11 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
 
-  state = 1;
-  lastState = 1;
-
+  // init counter variables
   row = 0;
-
   keycodeNum = 1;
+  lastStateCLK = 0;
+  rotLock = 0;
 
   /* USER CODE END 2 */
 
@@ -433,18 +431,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	// Send USB data
 	if (htim == &htim4) {
 	    // send HID report
-
-    // Write keypresses matrix to keyboardhid.keycodes
-    record_keys();
+		record_keys();
 		USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*) &keyboardhid, sizeof(keyboardhid));
-    keypresses[4][1] = 0;
-    keypresses[4][2] = 0;
-    
-    // reset keycode_num and keyboardhid struct
-		// keycodeNum = 1;
-		//memset(&keyboardhid, 0, sizeof(keyboardhid));
 
-		// print the keyboard hid struct
 	}
 
 	// Keypad scanning
@@ -461,51 +450,87 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 			if(cols & (1 << i)) {
 				keypresses[row][i] = 1;
 			}
-      else {
-        keypresses[row][i] = 0;
-      }
+			else {
+				keypresses[row][i] = 0;
+			}
 
 		}
 		/* END Row-Col Scanning */
 
 
 		/* Rotary Encoder */
-		lastState = state;
-		state = HAL_GPIO_ReadPin(GPIOC, ROT_SW_Pin);
+		currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
+
+		// if CLK pin has changed, then the rotary encoder has turned
+		if (currentStateCLK != lastStateCLK && rotLock == 0) {
+			// if the DT state is different, then the encoder is rotating counter-clockwise
+			currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
+
+			if (currentStateDT != currentStateCLK) {
+				// Volume Down
+				keypresses[4][1] = 1;
+			}
+
+			// otherwise, it is turning clockwise
+			else if (currentStateDT == currentStateCLK) {
+				// Volume Up
+				keypresses[4][2] = 1;
+			}
+			rotLock++;
+
+		}
+		else if (rotLock == 0) {
+			keypresses[4][1] = 0;
+			keypresses[4][2] = 0;
+		}
+
+		lastStateCLK = currentStateCLK;
+
+		// rotLock allows the rotary encoder's inputs to settle after a change is detected over a few extra clock cycles
+		if(rotLock != 0) {
+			rotLock = (rotLock + 1) % 200;
+		}
 
 		// if the state is low (default is high), turn toggle the LED
-		if (state == 0 && lastState != state) {
-			// Volume Mute keycode: 0x7F
+		if (HAL_GPIO_ReadPin(GPIOC, ROT_SW_Pin) == 0) {// && lastState != state) {
+			// Volume Mute Toggle
 			keypresses[4][0] = 1;
 		}
 		else {
 			keypresses[4][0] = 0;
 		}
 
-		currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
-
-		// if CLK pin has changed, then the rotary encoder has turned
-		if (currentStateCLK != lastStateCLK && currentStateCLK == 1) {
-			// if the DT state is different, then the encoder is rotating clockwise
-			currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
-
-
-			if (currentStateDT != currentStateCLK) {
-				// Volume Down keycode: 0x81
-				keypresses[4][1] = 1;
-
-				
-			}
-
-			// otherwise, it is turning counter-clockwise
-			else {
-				// Volume Up keycode: 0x80
-				keypresses[4][2] = 1;
-			}
-
-		}
-
-		lastStateCLK = currentStateCLK;
+//		currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
+//
+//		// if CLK pin has changed, then the rotary encoder has turned
+//		if (currentStateCLK != lastStateCLK) {// && currentStateCLK == 1) {
+//			// if the DT state is different, then the encoder is rotating clockwise
+//			currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
+//
+//
+//			if (currentStateDT != currentStateCLK) {
+//				// Volume Up
+//				add_keypress(keys[4][1]);
+//				//keypresses[4][1] = 1;
+//				//keypresses[4][2] = 0;
+//
+//			}
+//
+//			// otherwise, it is turning counter-clockwise
+//			else {
+//				// Volume Down
+//				add_keypress(keys[4][2]);
+//				//keypresses[4][1] = 0;
+//				//keypresses[4][2] = 1;
+//			}
+//
+//		}
+//		else {
+//			keypresses[4][1] = 0;
+//			keypresses[4][2] = 0;
+//		}
+//
+//		lastStateCLK = currentStateCLK;
 		/* END Rotary Encoder */
 	 }
 }
