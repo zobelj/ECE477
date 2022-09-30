@@ -37,6 +37,11 @@
     (uuid d70ead78-804f-4fae-bec1-54353d16c9f1)
   )
 
+  (text "Splitboard\nECE 477 Group 4 Final Project" (at 93.218 118.11 0)
+    (effects (font (size 4 4)) (justify left bottom))
+    (uuid b368b396-bbc0-434c-bc89-18355c4a3053)
+  )
+
   (sheet (at 59.69 27.686) (size 22.098 51.562) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
