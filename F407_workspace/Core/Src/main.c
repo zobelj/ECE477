@@ -83,10 +83,12 @@ char keypresses[5][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0}};
 
-const uint8_t keys_2[5][4] =  {{KEY_1, KEY_2, KEY_3, KEY_A},
-                               {KEY_4, KEY_5, KEY_6, KEY_B},
-                               {KEY_7, KEY_8, KEY_9, KEY_C},
-                               {KEY_ASTERISK, KEY_0, KEY_POUND, KEY_D}};
+
+const uint8_t keys_2[5][4] =  {{KEY_D, KEY_POUND, KEY_0, KEY_ASTERISK},
+                               {KEY_C, KEY_9, KEY_8, KEY_7},
+                               {KEY_B, KEY_6, KEY_5, KEY_4},
+                               {KEY_A, KEY_3, KEY_2, KEY_1}};
+
 
 char keypresses_2[4][4] = {{0, 0, 0, 0},
                            {0, 0, 0, 0},
