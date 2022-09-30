@@ -1,0 +1,471 @@
+14:12:36 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit_DMA(&hi2c2, GPIOEX_ADD, data, 2);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive_DMA(&hi2c2, GPIOEX_ADD, data, 1);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  42216	    280	   4936	  47432	   b948	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:12:42 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-size   F407_workspace.elf 
+   text	   data	    bss	    dec	    hex	filename
+  42216	    280	   4936	  47432	   b948	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+14:16:11 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  40840	    280	   4936	  46056	   b3e8	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:34:01 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f407vgtx.d" -MT"Core/Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f407vgtx.o" "../Core/Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'MX_I2C2_Init':
+../Core/Src/main.c:480:7: error: redefinition of 'retval'
+  480 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, d2, 1);
+      |       ^~~~~~
+../Core/Src/main.c:477:7: note: previous definition of 'retval' was here
+  477 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, d1, 2);
+      |       ^~~~~~
+../Core/Src/main.c:480:7: warning: unused variable 'retval' [-Wunused-variable]
+  480 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, d2, 1);
+      |       ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+14:34:22 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'MX_I2C2_Init':
+../Core/Src/main.c:480:7: warning: unused variable 'retval2' [-Wunused-variable]
+  480 |   int retval2 = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, d2, 1);
+      |       ^~~~~~~
+../Core/Src/main.c:477:7: warning: unused variable 'retval' [-Wunused-variable]
+  477 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, d1, 2);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  40884	    280	   4936	  46100	   b414	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:36:27 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'MX_I2C2_Init':
+../Core/Src/main.c:480:7: warning: unused variable 'retval2' [-Wunused-variable]
+  480 |   int retval2 = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, d2, 1, HAL_MAX_DELAY);
+      |       ^~~~~~~
+../Core/Src/main.c:477:7: warning: unused variable 'retval' [-Wunused-variable]
+  477 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, d1, 2, HAL_MAX_DELAY);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  42580	    280	   4936	  47796	   bab4	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:39:12 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, HAL_MAX_DELAY);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, HAL_MAX_DELAY);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41852	    280	   4936	  47068	   b7dc	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:47:29 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, HAL_MAX_DELAY);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, HAL_MAX_DELAY);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41824	    280	   4936	  47040	   b7c0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+14:55:48 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-size   F407_workspace.elf 
+   text	   data	    bss	    dec	    hex	filename
+  41824	    280	   4936	  47040	   b7c0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+15:01:51 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 1, HAL_MAX_DELAY);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, HAL_MAX_DELAY);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41848	    280	   4936	  47064	   b7d8	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:05:29 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41852	    280	   4936	  47068	   b7dc	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:08:38 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41852	    280	   4936	  47068	   b7dc	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:27:09 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41852	    280	   4936	  47068	   b7dc	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:29:47 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41848	    280	   4936	  47064	   b7d8	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:30:55 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:212:3: error: too few arguments to function 'HAL_I2C_Master_Transmit'
+  212 |   HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 1);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:359,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:566:19: note: declared here
+  566 | HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+15:31:05 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:33:13 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:40:34 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:41:43 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:44:29 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:45:24 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 
+15:47:10 **** Incremental Build of configuration Debug for project F407_workspace ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:201:7: warning: unused variable 'retval' [-Wunused-variable]
+  201 |   int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+      |       ^~~~~~
+../Core/Src/main.c: In function 'get_cols':
+../Core/Src/main.c:213:7: warning: unused variable 'retval' [-Wunused-variable]
+  213 |   int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+      |       ^~~~~~
+arm-none-eabi-gcc -o "F407_workspace.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_workspace/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_workspace.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_workspace.elf
+ 
+arm-none-eabi-size   F407_workspace.elf 
+arm-none-eabi-objdump -h -S  F407_workspace.elf  > "F407_workspace.list"
+   text	   data	    bss	    dec	    hex	filename
+  41872	    280	   4936	  47088	   b7f0	F407_workspace.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_workspace.list
+ 

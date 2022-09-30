@@ -197,8 +197,8 @@ void set_rows() {
   }
 
   // set current row to low and others to high on gpio expander keypad
-  uint8_t data[2] = {0x09, ~( 1 << row )};
-  int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+  uint8_t data[2] = {0x0A, ~( 1 << row )};
+  int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
 
 }
 
@@ -209,8 +209,8 @@ int get_cols() {
 
   // read the GPIO expander columns
   uint8_t data[1] = {0x09};
-//  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 1);
-  int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+  int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
 
   int expander_cols = data[0] & 0xF0;
 
@@ -368,6 +368,7 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
 
+
   // init counter variables
   row = 0;
   keycodeNum = 1;
@@ -450,7 +451,7 @@ static void MX_I2C2_Init(void)
 
   /* USER CODE END I2C2_Init 1 */
   hi2c2.Instance = I2C2;
-  hi2c2.Init.ClockSpeed = 100000;
+  hi2c2.Init.ClockSpeed = 400000;
   hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c2.Init.OwnAddress1 = 0;
   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -465,11 +466,20 @@ static void MX_I2C2_Init(void)
   /* USER CODE BEGIN I2C2_Init 2 */
 
   uint8_t iodir[2] = { 0x00 , 0xf0 };     // set pins 0-3 output and 4-7 as input
-  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, iodir, 2);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, iodir, 2, HAL_MAX_DELAY);
   uint8_t gppu[2] = { 0x06, 0xf0 };       // enable pull up resistors for pins 4-7
-  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, gppu, 2);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, gppu, 2, HAL_MAX_DELAY);
   uint8_t ipol[2] = { 0x01, 0xf0 };       // enable reverse for pins 4-7
-  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, ipol, 2);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, ipol, 2, HAL_MAX_DELAY);
+
+
+//  uint8_t d1[2] = {0x09, ~( 1 << 0 )};
+//  int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, d1, 2, HAL_MAX_DELAY);
+//
+//  uint8_t d2[1] = {0x09};
+//  int retval2 = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, d2, 1, HAL_MAX_DELAY);
+
+
 
   /* USER CODE END I2C2_Init 2 */
 
@@ -540,7 +550,7 @@ static void MX_TIM6_Init(void)
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 1600-1;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 10-1;
+  htim6.Init.Period = 20-1;
   htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
