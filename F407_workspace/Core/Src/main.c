@@ -36,6 +36,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define KEYCODE_LIMIT 6
+#define GPIOEX_ADD (0x27 << 1)
 
 /* USER CODE END PD */
 
@@ -45,6 +46,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c2;
+
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
 
@@ -56,10 +59,11 @@ int lastStateCLK;
 int currentStateDT;
 int rotLock;
 
+// adding keypresses to USB buffer
 int keycodeNum;
 
+// keypad scanning
 int row;
-
 
 /* keyccodes for:
    7 8 9 [space]
@@ -78,6 +82,16 @@ char keypresses[5][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0}};
+
+const uint8_t keys_2[5][4] =  {{KEY_1, KEY_2, KEY_3, KEY_A},
+                               {KEY_4, KEY_5, KEY_6, KEY_B},
+                               {KEY_7, KEY_8, KEY_9, KEY_C},
+                               {KEY_ASTERISK, KEY_0, KEY_POUND, KEY_D}};
+
+char keypresses_2[4][4] = {{0, 0, 0, 0},
+                           {0, 0, 0, 0},
+                           {0, 0, 0, 0},
+                           {0, 0, 0, 0}};
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
@@ -103,25 +117,64 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
+static void MX_I2C2_Init(void);
 /* USER CODE BEGIN PFP */
+
+// local keypad scanning
+void scan_keypad();
 void set_rows();
 int get_cols();
+
+// rotary encoder scanning
+void scan_rotary();
+
+// gpio expander scanning
+void scan_gpio_expander();
+
+// usb functions
 void add_keypress(char key);
+void record_keys();
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int __io_putchar(int ch)
-{
- // Write character to ITM ch.0
- ITM_SendChar(ch);
- return(ch);
+
+/* Local Keypad Scanning */
+void scan_keypad() {
+  set_rows();
+
+  // read the columns
+  int all_cols = get_cols();
+  int local_cols = all_cols & 0x0F;
+  int expander_cols = (all_cols & 0xF0) >> 4;
+  
+  // scan local cols
+  for(int i = 0; i < 4; i++) {
+    if(local_cols & (1 << i)) {
+      keypresses[row][i] = 1;
+    }
+    else {
+      keypresses[row][i] = 0;
+    }
+  }
+
+  // scan expander cols
+  for(int i = 0; i < 4; i++) {
+    if(expander_cols & (1 << i)) {
+      keypresses_2[row][i] = 1;
+    }
+    else {
+      keypresses_2[row][i] = 0;
+    }
+
+  }
 }
+
 void set_rows() {
   // update row value
   row = (row + 1) % 4;
-  // set all rows to high
+  // set all rows to high on local keypad
   HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_SET);
@@ -143,12 +196,107 @@ void set_rows() {
       break;
   }
 
+  // set current row to low and others to high on gpio expander keypad
+  uint8_t data[2] = {0x09, ~( 1 << row )};
+  int retval = HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 2);
+
 }
 
 int get_cols() {
   // get the value of all columns as one int from the GPIO register
   // PD7-4
-  return ~(GPIOD->IDR >> 4) & 0xF;
+  int local_cols = ~(GPIOD->IDR >> 4) & 0xF;
+
+  // read the GPIO expander columns
+  uint8_t data[1] = {0x09};
+//  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, data, 1);
+  int retval = HAL_I2C_Master_Receive_IT(&hi2c2, GPIOEX_ADD, data, 1);
+
+  int expander_cols = data[0] & 0xF0;
+
+  return local_cols | expander_cols;
+}
+/* END Local Keypad Scanning */
+
+/* Rotary Encoder Scanning */
+void scan_rotary() {
+  currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
+
+  // if CLK pin has changed, then the rotary encoder has turned
+  if (currentStateCLK != lastStateCLK && rotLock == 0) {
+    // if the DT state is different, then the encoder is rotating counter-clockwise
+    currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
+
+    if (currentStateDT != currentStateCLK) {
+      // Volume Down
+      keypresses[4][1] = 1;
+    }
+
+    // otherwise, it is turning clockwise
+    else if (currentStateDT == currentStateCLK) {
+      // Volume Up
+      keypresses[4][2] = 1;
+    }
+    rotLock++;
+
+  }
+  else if (rotLock == 0) {
+    keypresses[4][1] = 0;
+    keypresses[4][2] = 0;
+  }
+
+  lastStateCLK = currentStateCLK;
+
+  // rotLock allows the rotary encoder's inputs to settle over a few extra clock cycles
+  if(rotLock != 0) {
+    rotLock = (rotLock + 1) % 200;
+  }
+
+  // if the state is low (default is high), turn toggle the LED
+  if (HAL_GPIO_ReadPin(GPIOC, ROT_SW_Pin) == 0) {
+    // Volume Mute Toggle
+    keypresses[4][0] = 1;
+  }
+  else {
+    keypresses[4][0] = 0;
+  }
+
+}
+/* END Rotary Encoder Scanning */
+
+/* GPIO Expander Scanning */
+void scan_gpioexpander() {
+  // keypad scanning through GPIO expander
+  // set the rows
+  
+
+}
+/* END GPIO Expander Scanning */
+
+/* USB Functions */
+void record_keys() {
+  // reset keyboardhid to 0
+  memset(&keyboardhid, 0, sizeof(keyboardHID));
+  keycodeNum = 1;
+
+  // Add local keypresses
+  for(int i = 0; i < 4; i++) {
+	  for(int j = 0; j < 4; j++) {
+		  if(keypresses[i][j] == 1) {
+			  add_keypress(keys[i][j]);
+	    }
+	  }
+  }
+
+  // Add GPIO Expander keypresses
+  for(int i = 0; i < 4; i++) {
+	  for(int j = 0; j < 4; j++) {
+		  if(keypresses_2[i][j] == 1) {
+			  add_keypress(keys_2[i][j]);
+		  }
+	  }
+  }
+
 }
 
 void add_keypress(char key) {
@@ -177,22 +325,7 @@ void add_keypress(char key) {
 	}
 
 }
-
-void record_keys() {
-  // reset keyboardhid to 0
-  memset(&keyboardhid, 0, sizeof(keyboardHID));
-  keycodeNum = 1;
-
-  // add currently pressed keys to the keyboardhid keypresses
-  for(int i = 0; i < 5; i++) {
-    for(int j = 0; j < 4; j++) {
-      if(keypresses[i][j] == 1) {
-    	  add_keypress(keys[i][j]);
-      }
-    }
-  }
-
-}
+/* USB Functions */
 
 
 /* USER CODE END 0 */
@@ -228,9 +361,10 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM6_Init();
   MX_USB_DEVICE_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
-  // start the timer
+  // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
 
@@ -246,6 +380,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 
     /* USER CODE END WHILE */
 
@@ -297,6 +432,47 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief I2C2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C2_Init(void)
+{
+
+  /* USER CODE BEGIN I2C2_Init 0 */
+
+  /* USER CODE END I2C2_Init 0 */
+
+  /* USER CODE BEGIN I2C2_Init 1 */
+
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.ClockSpeed = 100000;
+  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C2_Init 2 */
+
+  uint8_t iodir[2] = { 0x00 , 0xf0 };     // set pins 0-3 output and 4-7 as input
+  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, iodir, 2);
+  uint8_t gppu[2] = { 0x06, 0xf0 };       // enable pull up resistors for pins 4-7
+  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, gppu, 2);
+  uint8_t ipol[2] = { 0x01, 0xf0 };       // enable reverse for pins 4-7
+  HAL_I2C_Master_Transmit_IT(&hi2c2, GPIOEX_ADD, ipol, 2);
+
+  /* USER CODE END I2C2_Init 2 */
+
 }
 
 /**
@@ -393,6 +569,7 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -437,101 +614,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	}
 
 	// Keypad scanning
-	else if(htim == &htim6) {
+	else if (htim == &htim6) {
 
 		/* Row-Col Scanning */
-		// update the rows
-		set_rows();
-
-		// read the columns
-		int cols = get_cols();
-		// if a key was pressed, print the key
-		for(int i = 0; i < 4; i++) {
-			if(cols & (1 << i)) {
-				keypresses[row][i] = 1;
-			}
-			else {
-				keypresses[row][i] = 0;
-			}
-
-		}
-		/* END Row-Col Scanning */
-
+		scan_keypad();
 
 		/* Rotary Encoder */
-		currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
+		scan_rotary();
 
-		// if CLK pin has changed, then the rotary encoder has turned
-		if (currentStateCLK != lastStateCLK && rotLock == 0) {
-			// if the DT state is different, then the encoder is rotating counter-clockwise
-			currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
-
-			if (currentStateDT != currentStateCLK) {
-				// Volume Down
-				keypresses[4][1] = 1;
-			}
-
-			// otherwise, it is turning clockwise
-			else if (currentStateDT == currentStateCLK) {
-				// Volume Up
-				keypresses[4][2] = 1;
-			}
-			rotLock++;
-
-		}
-		else if (rotLock == 0) {
-			keypresses[4][1] = 0;
-			keypresses[4][2] = 0;
-		}
-
-		lastStateCLK = currentStateCLK;
-
-		// rotLock allows the rotary encoder's inputs to settle after a change is detected over a few extra clock cycles
-		if(rotLock != 0) {
-			rotLock = (rotLock + 1) % 200;
-		}
-
-		// if the state is low (default is high), turn toggle the LED
-		if (HAL_GPIO_ReadPin(GPIOC, ROT_SW_Pin) == 0) {// && lastState != state) {
-			// Volume Mute Toggle
-			keypresses[4][0] = 1;
-		}
-		else {
-			keypresses[4][0] = 0;
-		}
-
-//		currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
-//
-//		// if CLK pin has changed, then the rotary encoder has turned
-//		if (currentStateCLK != lastStateCLK) {// && currentStateCLK == 1) {
-//			// if the DT state is different, then the encoder is rotating clockwise
-//			currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
-//
-//
-//			if (currentStateDT != currentStateCLK) {
-//				// Volume Up
-//				add_keypress(keys[4][1]);
-//				//keypresses[4][1] = 1;
-//				//keypresses[4][2] = 0;
-//
-//			}
-//
-//			// otherwise, it is turning counter-clockwise
-//			else {
-//				// Volume Down
-//				add_keypress(keys[4][2]);
-//				//keypresses[4][1] = 0;
-//				//keypresses[4][2] = 1;
-//			}
-//
-//		}
-//		else {
-//			keypresses[4][1] = 0;
-//			keypresses[4][2] = 0;
-//		}
-//
-//		lastStateCLK = currentStateCLK;
-		/* END Rotary Encoder */
+		/* GPIO Expander Keypad */
+		//scan_gpioexpander();
 	 }
 }
 

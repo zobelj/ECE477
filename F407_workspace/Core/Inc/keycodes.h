@@ -8,7 +8,7 @@
 #ifndef INC_KEYCODES_H_
 #define INC_KEYCODES_H_
 
-
+#define KEY_0     0x1D
 #define KEY_1     0x1E
 #define KEY_2     0x1F
 #define KEY_3     0x20
@@ -31,6 +31,12 @@
 #define KEY_VOLDOWN 0x81
 #define KEY_MUTE    0x7F
 #define KEY_A       0x04
+#define KEY_B       0x05
+#define KEY_C       0x06
+#define KEY_D       0x07
+
+#define KEY_ASTERISK 0x55
+#define KEY_POUND    0x56
 
 
 
