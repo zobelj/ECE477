@@ -219,9 +219,6 @@
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/2042fc76-6404-4d7a-9405-11bfb057ade9"
       (reference "#PWR026") (unit 1) (value "+3.3V") (footprint "")
     )
-    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/dcc52e46-f4b3-4b52-a1a9-e3d4d1dce024"
-      (reference "#PWR027") (unit 1) (value "GND") (footprint "")
-    )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/ca7d44f5-2643-4289-a1e4-3d5774a23255"
       (reference "#PWR028") (unit 1) (value "+3.3V") (footprint "")
     )
@@ -236,6 +233,15 @@
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/3c1392ed-5b9f-4e50-96d7-eb9168ed1f83"
       (reference "#PWR032") (unit 1) (value "+3.3V") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/034adfec-6bed-453d-92bd-fc6788cae941"
+      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/85dfa53e-4d55-4c6b-be3a-ec42f503555d"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/c9cb1eff-6a5a-48b7-baf3-40c84fdade98"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
     )
     (path "/5672c33b-f17a-4447-b73b-6e8ae8b6c0d5/2c1d7c25-4e6a-4efd-91be-81a9a2df6c69"
       (reference "C1") (unit 1) (value "0.1uF") (footprint "Resistor_SMD:R_0805_2012Metric")
@@ -308,6 +314,12 @@
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/626c159f-e1fd-4c5f-8a16-3d7912ccfc0e"
       (reference "C24") (unit 1) (value "100nF") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/86f5bcb4-a0b8-4f5f-9cc2-9a3fc6701389"
+      (reference "C?") (unit 1) (value ".01uF") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/e1016fe9-eaff-48f1-a4b5-5429e63a7b6f"
+      (reference "C?") (unit 1) (value ".01uF") (footprint "")
     )
     (path "/5672c33b-f17a-4447-b73b-6e8ae8b6c0d5/5ef3210e-de8e-444d-b7a3-c6a85e5c3868"
       (reference "D1") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
@@ -829,16 +841,22 @@
       (reference "R4") (unit 1) (value "R") (footprint "")
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/3e4df531-697a-4abd-8bd7-9c754cf4b7a8"
-      (reference "R5") (unit 1) (value "R") (footprint "")
+      (reference "R5") (unit 1) (value "10k") (footprint "")
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/d2a3d573-3fdc-446c-83c0-323323c0f869"
       (reference "R6") (unit 1) (value "~") (footprint "")
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/cc7175e7-a9a7-491b-97f9-dd0e064ec1a5"
-      (reference "R7") (unit 1) (value "R") (footprint "")
+      (reference "R7") (unit 1) (value "10k") (footprint "")
     )
     (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/cf07b8d4-ac6a-4205-956c-af4a10ed30b8"
       (reference "R8") (unit 1) (value "~") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/3f018fb0-3166-437b-93ef-83b926939c40"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
+    )
+    (path "/eeedf4ca-d3f7-4489-9e0f-4992ff8d20a1/ae706737-d211-40ee-9880-6b9ca648b648"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
     )
     (path "/5672c33b-f17a-4447-b73b-6e8ae8b6c0d5/41c52e1b-e58e-4880-8477-e089c784c00c"
       (reference "SW1") (unit 1) (value "RotaryEncoder") (footprint "Rotary_Encoder:RotaryEncoder_Alps_EC12E_Vertical_H20mm")
