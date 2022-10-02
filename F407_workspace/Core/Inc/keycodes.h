@@ -16,7 +16,7 @@
 #define KEY_6     0x23
 #define KEY_7     0x24
 #define KEY_8     0x25
-#define KEY_9     0x2
+#define KEY_9     0x26
 #define KEY_0     0x27
 #define KEY_LEFT  0x50
 #define KEY_RIGHT 0x4F
