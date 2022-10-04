@@ -57,6 +57,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LDC1_RESET_Pin GPIO_PIN_10
+#define LDC1_RESET_GPIO_Port GPIOE
+#define LCD2_RESET_Pin GPIO_PIN_11
+#define LCD2_RESET_GPIO_Port GPIOE
+#define LCD1_CS_Pin GPIO_PIN_12
+#define LCD1_CS_GPIO_Port GPIOE
+#define LCD1_DC_Pin GPIO_PIN_13
+#define LCD1_DC_GPIO_Port GPIOE
+#define LCD2_CS_Pin GPIO_PIN_14
+#define LCD2_CS_GPIO_Port GPIOE
+#define LCD2_DC_Pin GPIO_PIN_15
+#define LCD2_DC_GPIO_Port GPIOE
 #define COL4_Pin GPIO_PIN_8
 #define COL4_GPIO_Port GPIOD
 #define ROT_SW_Pin GPIO_PIN_6
