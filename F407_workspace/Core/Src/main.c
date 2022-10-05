@@ -25,6 +25,8 @@
 
 #include "usbd_hid.h"
 #include "keycodes.h"
+#include "ILI9341_GFX.h"
+#include "ILI9341_STM32_Driver.h"
 
 /* USER CODE END Includes */
 
@@ -48,10 +50,17 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c2;
 
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_tx;
+
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
+
+int lcd_counter;
+int lcd_lock;
+
 
 // rotary direction
 int currentStateCLK;
@@ -75,7 +84,7 @@ const uint8_t keys[5][4] =  {{KEY_7, KEY_8, KEY_9, KEY_SPACE},
                              {KEY_4, KEY_5, KEY_6, KEY_W},
                              {KEY_1, KEY_2, KEY_3, KEY_PERIOD},
                              {KEY_LEFT, KEY_UP, KEY_DOWN, KEY_RIGHT},
-                             {KEY_MUTE, KEY_VOLDOWN, KEY_VOLUP, 0}};
+                             {KEY_A, KEY_A, KEY_A, 0}};
 
 char keypresses[5][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0},
@@ -84,6 +93,12 @@ char keypresses[5][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0}};
 
 
+/* keycodes for:
+   1 2 3 a
+   4 5 6 b
+   7 8 9 c
+   * 0 # d
+*/
 const uint8_t keys_2[5][4] =  {{KEY_D, KEY_POUND, KEY_0, KEY_ASTERISK},
                                {KEY_C, KEY_9, KEY_8, KEY_7},
                                {KEY_B, KEY_6, KEY_5, KEY_4},
@@ -117,9 +132,11 @@ keyboardHID keyboardhid = {0,0,0,0,0,0,0,0};
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_I2C2_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 // local keypad scanning
@@ -130,12 +147,12 @@ int get_cols();
 // rotary encoder scanning
 void scan_rotary();
 
-// gpio expander scanning
-void scan_gpio_expander();
-
 // usb functions
 void add_keypress(char key);
 void record_keys();
+
+// LCD functions
+void switch_lcd();
 
 /* USER CODE END PFP */
 
@@ -200,7 +217,7 @@ void set_rows() {
 
   // set current row to low and others to high on gpio expander keypad
   uint8_t data[2] = {0x0A, ~( 1 << row )};
-  int retval = HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
 
 }
 
@@ -212,7 +229,7 @@ int get_cols() {
   // read the GPIO expander columns
   uint8_t data[1] = {0x09};
   HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 1, 1000);
-  int retval = HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
+  HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADD, data, 1, 1000);
 
   int expander_cols = data[0] & 0xF0;
 
@@ -225,7 +242,7 @@ void scan_rotary() {
   currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
 
   // if CLK pin has changed, then the rotary encoder has turned
-  if (currentStateCLK != lastStateCLK && rotLock == 0) {
+  if (currentStateCLK != lastStateCLK ) {// && rotLock == 0) {
     // if the DT state is different, then the encoder is rotating counter-clockwise
     currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
 
@@ -265,16 +282,6 @@ void scan_rotary() {
 
 }
 /* END Rotary Encoder Scanning */
-
-/* GPIO Expander Scanning */
-void scan_gpioexpander() {
-  // keypad scanning through GPIO expander
-  // set the rows
-  
-
-}
-/* END GPIO Expander Scanning */
-
 /* USB Functions */
 void record_keys() {
   // reset keyboardhid to 0
@@ -302,32 +309,55 @@ void record_keys() {
 }
 
 void add_keypress(char key) {
-	if(keycodeNum <= KEYCODE_LIMIT) {
-	  switch(keycodeNum) {
-		case 1:
-		  keyboardhid.KEYCODE1 = key;
-		  break;
-		case 2:
-		  keyboardhid.KEYCODE2 = key;
-		  break;
-		case 3:
-		  keyboardhid.KEYCODE3 = key;
-		  break;
-		case 4:
-		  keyboardhid.KEYCODE4 = key;
-		  break;
-		case 5:
-		  keyboardhid.KEYCODE5 = key;
-		  break;
-		case 6:
-		  keyboardhid.KEYCODE6 = key;
-		  break;
-	  }
-	  keycodeNum++;
-	}
+	switch(keycodeNum) {
+			case 1:
+			  keyboardhid.KEYCODE1 = key;
+			  break;
+			case 2:
+			  keyboardhid.KEYCODE2 = key;
+			  break;
+			case 3:
+			  keyboardhid.KEYCODE3 = key;
+			  break;
+			case 4:
+			  keyboardhid.KEYCODE4 = key;
+			  break;
+			case 5:
+			  keyboardhid.KEYCODE5 = key;
+			  break;
+			case 6:
+			  keyboardhid.KEYCODE6 = key;
+			  break;
+			default:
+				break;
+		  }
+		  keycodeNum++;
 
 }
-/* USB Functions */
+/* END USB Functions */
+
+/* LCD Functions */
+void switch_lcd() {
+  // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
+  if(LCD_CS_PORT == LCD1_CS_PORT) {
+    LCD_CS_PORT = LCD2_CS_PORT;
+    LCD_CS_PIN = LCD2_CS_PIN;
+    LCD_DC_PORT = LCD2_DC_PORT;
+    LCD_DC_PIN = LCD2_DC_PIN;
+    LCD_RST_PORT = LCD2_RST_PORT;
+    LCD_RST_PIN = LCD2_RST_PIN;
+  }
+  else {
+    LCD_CS_PORT = LCD1_CS_PORT;
+    LCD_CS_PIN = LCD1_CS_PIN;
+    LCD_DC_PORT = LCD1_DC_PORT;
+    LCD_DC_PIN = LCD1_DC_PIN;
+    LCD_RST_PORT = LCD1_RST_PORT;
+    LCD_RST_PIN = LCD1_RST_PIN;
+  }
+}
+
+/* END LCD Functions
 
 
 /* USER CODE END 0 */
@@ -360,15 +390,28 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM4_Init();
   MX_TIM6_Init();
   MX_USB_DEVICE_Init();
   MX_I2C2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+
+  // init lcds
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
+
+  switch_lcd();
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_HORIZONTAL_2);
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
+
+  // Initialize the LCDs
+ 
 
 
   // init counter variables
@@ -377,13 +420,27 @@ int main(void)
   lastStateCLK = 0;
   rotLock = 0;
 
+  lcd_counter = 0;
+  lcd_lock = 0;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	if(lcd_lock == 0) {
+	  switch_lcd();
+	  lcd_lock = 1;
 
+	  ILI9341_FillScreen(WHITE);
+
+	  // draw the counter to the lcd
+	  char buffer[10];
+	  sprintf(buffer, "%d", lcd_counter++);
+	  ILI9341_DrawText(buffer, FONT4, 90, 110, BLACK, WHITE);
+	}
+	lcd_lock = (lcd_lock + 1) % 1000;
 
     /* USER CODE END WHILE */
 
@@ -488,6 +545,44 @@ static void MX_I2C2_Init(void)
 }
 
 /**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
   * @brief TIM4 Initialization Function
   * @param None
   * @retval None
@@ -571,6 +666,22 @@ static void MX_TIM6_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -581,13 +692,27 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOE, LDC1_RESET_Pin|LCD2_RESET_Pin|LCD1_CS_Pin|LCD1_DC_Pin
+                          |LCD2_CS_Pin|LCD2_DC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LDC1_RESET_Pin LCD2_RESET_Pin LCD1_CS_Pin LCD1_DC_Pin
+                           LCD2_CS_Pin LCD2_DC_Pin */
+  GPIO_InitStruct.Pin = LDC1_RESET_Pin|LCD2_RESET_Pin|LCD1_CS_Pin|LCD1_DC_Pin
+                          |LCD2_CS_Pin|LCD2_DC_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pins : COL4_Pin COL0_Pin COL1_Pin COL2_Pin
                            COL3_Pin */
@@ -633,10 +758,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 		/* Rotary Encoder */
 		scan_rotary();
-
-		/* GPIO Expander Keypad */
-		//scan_gpioexpander();
-	 }
+	}
 }
 
 /* USER CODE END 4 */
