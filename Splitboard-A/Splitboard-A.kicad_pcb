@@ -7813,7 +7813,7 @@
   (gr_text "Once done routing, for unused pins,\ndraw out traces and attach vias (assign nets in schematic)\nthis will allow fly wiring if we smoke a pin" (at 317.5 53.34) (layer "F.SilkS") (tstamp 1bda840b-3a99-4538-8828-20589e3b16f4)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
-  (gr_text "The switches unfortunately need to be re-spaced.\nThey are 19mm apart from center to center, we need\nthe horizontal distance to be 19mm, center to center\ndistance will likely be greater than 19mm" (at 88.9 17.78) (layer "F.SilkS") (tstamp 1dab0afe-3548-4151-8881-8b22d19fec61)
+  (gr_text "The switches unfortunately need to be re-spaced.\nThey are 19mm apart from center to center, we need\nthe horizontal distance to be 19mm, center to center\ndistance will be greater than 19mm because of trig & stuff" (at 88.9 17.78) (layer "F.SilkS") (tstamp 1dab0afe-3548-4151-8881-8b22d19fec61)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
   (gr_text "ALL VIA INTERAL DIAMETERS\nNEED TO BE >= 5mm (for fly wiring)\nAlso untented" (at 317.5 68.58) (layer "F.SilkS") (tstamp 4861e296-bcd9-44f0-ab78-e10a2cc5919c)
