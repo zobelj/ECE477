@@ -99,10 +99,11 @@ char keypresses[5][4] = {{0, 0, 0, 0},
    7 8 9 c
    * 0 # d
 */
-const uint8_t keys_2[5][4] =  {{KEY_D, KEY_POUND, KEY_0, KEY_ASTERISK},
-                               {KEY_C, KEY_9, KEY_8, KEY_7},
+
+const uint8_t keys_2[5][4] =  {{KEY_A, KEY_3, KEY_2, KEY_1},
                                {KEY_B, KEY_6, KEY_5, KEY_4},
-                               {KEY_A, KEY_3, KEY_2, KEY_1}};
+                               {KEY_C, KEY_9, KEY_8, KEY_7},
+                               {KEY_D, KEY_POUND, KEY_0, KEY_ASTERISK}};
 
 
 char keypresses_2[4][4] = {{0, 0, 0, 0},
@@ -216,7 +217,7 @@ void set_rows() {
   }
 
   // set current row to low and others to high on gpio expander keypad
-  uint8_t data[2] = {0x0A, ~( 1 << row )};
+  uint8_t data[2] = {0x0A, ~( 8 >> row )};
   HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADD, data, 2, 1000);
 
 }
@@ -242,7 +243,7 @@ void scan_rotary() {
   currentStateCLK = HAL_GPIO_ReadPin(GPIOC, ROT_CLCK_Pin);
 
   // if CLK pin has changed, then the rotary encoder has turned
-  if (currentStateCLK != lastStateCLK ) {// && rotLock == 0) {
+  if (currentStateCLK != lastStateCLK && rotLock == 0 ) {// && rotLock == 0) {
     // if the DT state is different, then the encoder is rotating counter-clockwise
     currentStateDT = HAL_GPIO_ReadPin(GPIOC, ROT_DT_Pin);
 
@@ -282,6 +283,7 @@ void scan_rotary() {
 
 }
 /* END Rotary Encoder Scanning */
+
 /* USB Functions */
 void record_keys() {
   // reset keyboardhid to 0
@@ -339,26 +341,27 @@ void add_keypress(char key) {
 /* LCD Functions */
 void switch_lcd() {
   // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
-  if(LCD_CS_PORT == LCD1_CS_PORT) {
-    LCD_CS_PORT = LCD2_CS_PORT;
-    LCD_CS_PIN = LCD2_CS_PIN;
-    LCD_DC_PORT = LCD2_DC_PORT;
-    LCD_DC_PIN = LCD2_DC_PIN;
-    LCD_RST_PORT = LCD2_RST_PORT;
-    LCD_RST_PIN = LCD2_RST_PIN;
+  if(LCD_CS_PIN == LCD2_CS_PIN) {
+	  LCD_CS_PORT = LCD1_CS_PORT;
+	  LCD_CS_PIN = LCD1_CS_PIN;
+	  LCD_DC_PORT = LCD1_DC_PORT;
+	  LCD_DC_PIN = LCD1_DC_PIN;
+	  LCD_RST_PORT = LCD1_RST_PORT;
+	  LCD_RST_PIN = LCD1_RST_PIN;
   }
   else {
-    LCD_CS_PORT = LCD1_CS_PORT;
-    LCD_CS_PIN = LCD1_CS_PIN;
-    LCD_DC_PORT = LCD1_DC_PORT;
-    LCD_DC_PIN = LCD1_DC_PIN;
-    LCD_RST_PORT = LCD1_RST_PORT;
-    LCD_RST_PIN = LCD1_RST_PIN;
+
+
+    LCD_CS_PORT = LCD2_CS_PORT;
+	LCD_CS_PIN = LCD2_CS_PIN;
+	LCD_DC_PORT = LCD2_DC_PORT;
+	LCD_DC_PIN = LCD2_DC_PIN;
+	LCD_RST_PORT = LCD2_RST_PORT;
+	LCD_RST_PIN = LCD2_RST_PIN;
   }
 }
 
-/* END LCD Functions
-
+/* END LCD Functions */
 
 /* USER CODE END 0 */
 
@@ -398,7 +401,7 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
-  // init lcds
+  // Initialize the LCDs
   ILI9341_Init();
   ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
 
@@ -409,10 +412,6 @@ int main(void)
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
-
-  // Initialize the LCDs
- 
-
 
   // init counter variables
   row = 0;
@@ -471,9 +470,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
+  RCC_OscInitStruct.PLL.PLLQ = 3;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -485,10 +484,10 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -695,8 +694,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, LDC1_RESET_Pin|LCD2_RESET_Pin|LCD1_CS_Pin|LCD1_DC_Pin
@@ -714,14 +713,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : COL4_Pin COL0_Pin COL1_Pin COL2_Pin
-                           COL3_Pin */
-  GPIO_InitStruct.Pin = COL4_Pin|COL0_Pin|COL1_Pin|COL2_Pin
-                          |COL3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
   /*Configure GPIO pins : ROT_SW_Pin ROT_DT_Pin ROT_CLCK_Pin */
   GPIO_InitStruct.Pin = ROT_SW_Pin|ROT_DT_Pin|ROT_CLCK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -733,6 +724,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : COL0_Pin COL1_Pin COL2_Pin COL3_Pin */
+  GPIO_InitStruct.Pin = COL0_Pin|COL1_Pin|COL2_Pin|COL3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
 }
