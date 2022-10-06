@@ -1368,7 +1368,6 @@
     )
   )
 
-
   (junction (at 340.36 158.75) (diameter 0) (color 0 0 0 0)
     (uuid 07856335-e708-4f36-8f40-20c44d0d9b40)
   )
@@ -4503,7 +4502,7 @@
     (property "Value" "RotaryEncoder" (id 1) (at 360.934 154.432 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC12E_Vertical_H20mm" (id 2) (at 363.22 157.226 0)
+    (property "Footprint" "Rotary_Encoder:RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm" (id 2) (at 363.22 157.226 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 367.03 154.686 0)
@@ -5877,7 +5876,7 @@
       (reference "R7") (unit 1) (value "10k") (footprint "")
     )
     (path "/92527856-d3ca-4bc5-b4fe-d85867977214"
-      (reference "SW1") (unit 1) (value "RotaryEncoder") (footprint "Rotary_Encoder:RotaryEncoder_Alps_EC12E_Vertical_H20mm")
+      (reference "SW1") (unit 1) (value "RotaryEncoder") (footprint "Rotary_Encoder:RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm")
     )
     (path "/3a31ae65-de49-4f48-8038-a331a3ecf694"
       (reference "U1") (unit 1) (value "CR2013-MI2120") (footprint "Display:CR2013-MI2120")
