@@ -4603,7 +4603,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 148.59 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060521033)
-    (property "Reference" "K2" (id 0) (at 449.58 142.6718 0)
+    (property "Reference" "K8" (id 0) (at 449.58 142.6718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 151.13 0)
@@ -4622,7 +4622,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 153.67 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-0000605212e5)
-    (property "Reference" "D2" (id 0) (at 442.722 152.5016 90)
+    (property "Reference" "D8" (id 0) (at 442.722 152.5016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 154.813 90)
@@ -4641,7 +4641,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 148.59 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060525206)
-    (property "Reference" "K3" (id 0) (at 472.44 142.6718 0)
+    (property "Reference" "K15" (id 0) (at 472.44 142.6718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 151.13 0)
@@ -4660,7 +4660,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 153.67 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-0000605254e0)
-    (property "Reference" "D3" (id 0) (at 465.582 152.5016 90)
+    (property "Reference" "D15" (id 0) (at 465.582 152.5016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 154.813 90)
@@ -4679,7 +4679,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 148.59 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-0000605254ec)
-    (property "Reference" "K4" (id 0) (at 494.03 142.6718 0)
+    (property "Reference" "K22" (id 0) (at 494.03 142.6718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 151.13 0)
@@ -4698,7 +4698,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 153.67 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-0000605254f8)
-    (property "Reference" "D4" (id 0) (at 487.172 152.5016 90)
+    (property "Reference" "D22" (id 0) (at 487.172 152.5016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 154.813 90)
@@ -4717,7 +4717,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539a78)
-    (property "Reference" "K7" (id 0) (at 427.99 161.7218 0)
+    (property "Reference" "K2" (id 0) (at 427.99 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 170.18 0)
@@ -4736,7 +4736,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539da2)
-    (property "Reference" "D7" (id 0) (at 421.132 171.5516 90)
+    (property "Reference" "D2" (id 0) (at 421.132 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 173.863 90)
@@ -4755,7 +4755,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dae)
-    (property "Reference" "K8" (id 0) (at 449.58 161.7218 0)
+    (property "Reference" "K9" (id 0) (at 449.58 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 170.18 0)
@@ -4774,7 +4774,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dba)
-    (property "Reference" "D8" (id 0) (at 442.722 171.5516 90)
+    (property "Reference" "D9" (id 0) (at 442.722 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 173.863 90)
@@ -4793,7 +4793,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dc6)
-    (property "Reference" "K9" (id 0) (at 472.44 161.7218 0)
+    (property "Reference" "K16" (id 0) (at 472.44 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 170.18 0)
@@ -4812,7 +4812,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dd2)
-    (property "Reference" "D9" (id 0) (at 465.582 171.5516 90)
+    (property "Reference" "D16" (id 0) (at 465.582 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 173.863 90)
@@ -4831,7 +4831,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dde)
-    (property "Reference" "K10" (id 0) (at 494.03 161.7218 0)
+    (property "Reference" "K23" (id 0) (at 494.03 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 170.18 0)
@@ -4850,7 +4850,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060539dea)
-    (property "Reference" "D10" (id 0) (at 487.172 171.5516 90)
+    (property "Reference" "D23" (id 0) (at 487.172 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 173.863 90)
@@ -4869,7 +4869,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547ba5)
-    (property "Reference" "K13" (id 0) (at 427.99 180.7718 0)
+    (property "Reference" "K3" (id 0) (at 427.99 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 189.23 0)
@@ -4888,7 +4888,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547f6f)
-    (property "Reference" "D13" (id 0) (at 421.132 190.6016 90)
+    (property "Reference" "D3" (id 0) (at 421.132 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 192.913 90)
@@ -4907,7 +4907,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547f7b)
-    (property "Reference" "K14" (id 0) (at 449.58 180.7718 0)
+    (property "Reference" "K10" (id 0) (at 449.58 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 189.23 0)
@@ -4926,7 +4926,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547f87)
-    (property "Reference" "D14" (id 0) (at 442.722 190.6016 90)
+    (property "Reference" "D10" (id 0) (at 442.722 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 192.913 90)
@@ -4945,7 +4945,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547f93)
-    (property "Reference" "K15" (id 0) (at 472.44 180.7718 0)
+    (property "Reference" "K17" (id 0) (at 472.44 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 189.23 0)
@@ -4964,7 +4964,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547f9f)
-    (property "Reference" "D15" (id 0) (at 465.582 190.6016 90)
+    (property "Reference" "D17" (id 0) (at 465.582 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 192.913 90)
@@ -4983,7 +4983,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fab)
-    (property "Reference" "K16" (id 0) (at 494.03 180.7718 0)
+    (property "Reference" "K24" (id 0) (at 494.03 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 189.23 0)
@@ -5002,7 +5002,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fb7)
-    (property "Reference" "D16" (id 0) (at 487.172 190.6016 90)
+    (property "Reference" "D24" (id 0) (at 487.172 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 192.913 90)
@@ -5021,7 +5021,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 205.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fc3)
-    (property "Reference" "K19" (id 0) (at 427.99 199.8218 0)
+    (property "Reference" "K4" (id 0) (at 427.99 199.8218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 208.28 0)
@@ -5040,7 +5040,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 210.82 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fcf)
-    (property "Reference" "D19" (id 0) (at 421.132 209.6516 90)
+    (property "Reference" "D4" (id 0) (at 421.132 209.6516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 211.963 90)
@@ -5059,7 +5059,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 205.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fdb)
-    (property "Reference" "K20" (id 0) (at 449.58 199.8218 0)
+    (property "Reference" "K11" (id 0) (at 449.58 199.8218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 208.28 0)
@@ -5078,7 +5078,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 210.82 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fe7)
-    (property "Reference" "D20" (id 0) (at 442.722 209.6516 90)
+    (property "Reference" "D11" (id 0) (at 442.722 209.6516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 211.963 90)
@@ -5097,7 +5097,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 205.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547ff3)
-    (property "Reference" "K21" (id 0) (at 472.44 199.8218 0)
+    (property "Reference" "K18" (id 0) (at 472.44 199.8218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 208.28 0)
@@ -5116,7 +5116,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 210.82 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060547fff)
-    (property "Reference" "D21" (id 0) (at 465.582 209.6516 90)
+    (property "Reference" "D18" (id 0) (at 465.582 209.6516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 211.963 90)
@@ -5135,7 +5135,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 205.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006054800b)
-    (property "Reference" "K22" (id 0) (at 494.03 199.8218 0)
+    (property "Reference" "K25" (id 0) (at 494.03 199.8218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 208.28 0)
@@ -5154,7 +5154,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 210.82 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060548017)
-    (property "Reference" "D22" (id 0) (at 487.172 209.6516 90)
+    (property "Reference" "D25" (id 0) (at 487.172 209.6516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 211.963 90)
@@ -5173,7 +5173,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 226.06 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 004e8f37-5620-4653-b688-b97716e6df29)
-    (property "Reference" "K27" (id 0) (at 494.03 220.1418 0)
+    (property "Reference" "K26" (id 0) (at 494.03 220.1418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 228.6 0)
@@ -5296,7 +5296,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 264.16 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 06ab1612-cdee-442c-a9d9-01ccb26ab4fe)
-    (property "Reference" "K34" (id 0) (at 427.99 258.2418 0)
+    (property "Reference" "K7" (id 0) (at 427.99 258.2418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 266.7 0)
@@ -5386,7 +5386,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 538.48 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 0d027d77-9290-4fa3-9a27-0aab35c2dbbc)
-    (property "Reference" "K12" (id 0) (at 538.48 161.7218 0)
+    (property "Reference" "K37" (id 0) (at 538.48 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 538.48 170.18 0)
@@ -5442,7 +5442,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 538.48 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 0f84e3ee-75ae-4e0b-abe8-0008e09dea61)
-    (property "Reference" "K18" (id 0) (at 538.48 180.7718 0)
+    (property "Reference" "K38" (id 0) (at 538.48 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 538.48 189.23 0)
@@ -5461,7 +5461,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 186.69 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 106ea308-4f67-40a2-b86a-cc3f3f92c487)
-    (property "Reference" "K17" (id 0) (at 516.89 180.7718 0)
+    (property "Reference" "K31" (id 0) (at 516.89 180.7718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 189.23 0)
@@ -5496,7 +5496,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 245.11 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 12d5d00d-c3e6-4a7f-bded-98b3fc7f372a)
-    (property "Reference" "K31" (id 0) (at 472.44 239.1918 0)
+    (property "Reference" "K20" (id 0) (at 472.44 239.1918 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 247.65 0)
@@ -5515,7 +5515,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 205.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 141fe767-f83c-44ea-b9d5-da9d5724b965)
-    (property "Reference" "K23" (id 0) (at 516.89 199.8218 0)
+    (property "Reference" "K32" (id 0) (at 516.89 199.8218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 208.28 0)
@@ -5569,7 +5569,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 250.19 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 1d2c0bd5-77f5-4277-88e3-8c8bc719abf6)
-    (property "Reference" "D33" (id 0) (at 510.032 249.0216 90)
+    (property "Reference" "D34" (id 0) (at 510.032 249.0216 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 251.333 90)
@@ -5604,7 +5604,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 153.67 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 20460b92-144d-4b30-8cf9-f20cb99f7096)
-    (property "Reference" "D5" (id 0) (at 510.032 152.5016 90)
+    (property "Reference" "D29" (id 0) (at 510.032 152.5016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 154.813 90)
@@ -5639,7 +5639,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 148.59 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 21e5832e-fb6f-44ee-a1c4-4b55c61d322c)
-    (property "Reference" "K5" (id 0) (at 516.89 142.6718 0)
+    (property "Reference" "K29" (id 0) (at 516.89 142.6718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 151.13 0)
@@ -5706,7 +5706,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 231.14 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 2615556e-0ebe-4b5d-8519-51a8bb269d82)
-    (property "Reference" "D24" (id 0) (at 421.132 229.9716 90)
+    (property "Reference" "D5" (id 0) (at 421.132 229.9716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 232.283 90)
@@ -5804,7 +5804,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 250.19 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 328e6651-9918-4c8b-98cd-d965e2fbd77e)
-    (property "Reference" "D29" (id 0) (at 421.132 249.0216 90)
+    (property "Reference" "D6" (id 0) (at 421.132 249.0216 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 251.333 90)
@@ -5823,7 +5823,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 226.06 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 33db506f-011a-4f09-866d-ad73291f3bee)
-    (property "Reference" "K24" (id 0) (at 427.99 220.1418 0)
+    (property "Reference" "K5" (id 0) (at 427.99 220.1418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 228.6 0)
@@ -5899,7 +5899,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 264.16 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 3d4d984d-986c-45e2-8a26-87792bb9758a)
-    (property "Reference" "K35" (id 0) (at 449.58 258.2418 0)
+    (property "Reference" "K14" (id 0) (at 449.58 258.2418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 266.7 0)
@@ -5969,7 +5969,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 250.19 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 44371215-43fe-43ed-ac9a-c7c6e9dfd1c1)
-    (property "Reference" "D32" (id 0) (at 487.172 249.0216 90)
+    (property "Reference" "D27" (id 0) (at 487.172 249.0216 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 251.333 90)
@@ -5988,7 +5988,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 269.24 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 44505ef1-e05a-4c7f-b3cb-8fc8aa268de5)
-    (property "Reference" "D39" (id 0) (at 510.032 268.0716 90)
+    (property "Reference" "D35" (id 0) (at 510.032 268.0716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 270.383 90)
@@ -6007,7 +6007,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 419.1 269.24 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 47f8fcfb-11d7-48cd-a86c-0ef60d80638f)
-    (property "Reference" "D35" (id 0) (at 421.132 268.0716 90)
+    (property "Reference" "D7" (id 0) (at 421.132 268.0716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 421.132 270.383 90)
@@ -6045,7 +6045,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 245.11 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 527a53c1-5bfa-4323-89b9-2bd32021c0c3)
-    (property "Reference" "K30" (id 0) (at 449.58 239.1918 0)
+    (property "Reference" "K13" (id 0) (at 449.58 239.1918 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 247.65 0)
@@ -6079,7 +6079,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 226.06 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 53881540-d953-4b99-a1f3-45ded9893d14)
-    (property "Reference" "K26" (id 0) (at 472.44 220.1418 0)
+    (property "Reference" "K19" (id 0) (at 472.44 220.1418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 228.6 0)
@@ -6115,7 +6115,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 245.11 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 5a648d42-a89b-4b1f-9066-ea0c47264c67)
-    (property "Reference" "K32" (id 0) (at 494.03 239.1918 0)
+    (property "Reference" "K27" (id 0) (at 494.03 239.1918 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 247.65 0)
@@ -6150,8 +6150,8 @@
   (symbol (lib_id "Device:D_Schottky") (at 77.47 266.7 180) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 5ef3210e-de8e-444d-b7a3-c6a85e5c3868)
-    (property "Reference" "D34" (id 0) (at 77.7875 260.604 0))
-    (property "Value" "D_Schottky" (id 1) (at 77.7875 263.144 0))
+    (property "Reference" "D39" (id 0) (at 77.7875 260.35 0))
+    (property "Value" "D_Schottky" (id 1) (at 77.7875 262.89 0))
     (property "Footprint" "Diode_SMD:D_SOD-123" (id 2) (at 77.47 266.7 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -6199,7 +6199,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 226.06 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 6cea1147-26ba-4dac-a86e-6d7e92d28384)
-    (property "Reference" "K28" (id 0) (at 516.89 220.1418 0)
+    (property "Reference" "K33" (id 0) (at 516.89 220.1418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 228.6 0)
@@ -6218,7 +6218,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 6f977f1a-2e68-4a74-99ca-b3a31551bb2f)
-    (property "Reference" "D17" (id 0) (at 510.032 190.6016 90)
+    (property "Reference" "D31" (id 0) (at 510.032 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 192.913 90)
@@ -6237,7 +6237,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 269.24 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 70f432c1-1dc8-4e7f-ae29-53933524f19d)
-    (property "Reference" "D38" (id 0) (at 487.172 268.0716 90)
+    (property "Reference" "D28" (id 0) (at 487.172 268.0716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 270.383 90)
@@ -6256,7 +6256,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 231.14 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 715addf3-0acd-4874-8712-80dde2ef2ff0)
-    (property "Reference" "D25" (id 0) (at 442.722 229.9716 90)
+    (property "Reference" "D12" (id 0) (at 442.722 229.9716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 232.283 90)
@@ -6345,7 +6345,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 250.19 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 789100e8-4e9f-448c-aae2-6650c644a27d)
-    (property "Reference" "D30" (id 0) (at 442.722 249.0216 90)
+    (property "Reference" "D13" (id 0) (at 442.722 249.0216 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 251.333 90)
@@ -6709,7 +6709,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 231.14 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 9517efd4-7abd-4d86-9394-cc7beea74980)
-    (property "Reference" "D28" (id 0) (at 510.032 229.9716 90)
+    (property "Reference" "D33" (id 0) (at 510.032 229.9716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 232.283 90)
@@ -6728,7 +6728,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 529.59 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 957e5da9-450f-4e4d-9001-1e735d9d1e18)
-    (property "Reference" "D12" (id 0) (at 531.622 171.5516 90)
+    (property "Reference" "D37" (id 0) (at 531.622 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 531.622 173.863 90)
@@ -6747,7 +6747,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 529.59 153.67 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 958de223-acd4-489c-89b3-4870164b367b)
-    (property "Reference" "D6" (id 0) (at 531.622 152.5016 90)
+    (property "Reference" "D36" (id 0) (at 531.622 152.5016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 531.622 154.813 90)
@@ -6782,7 +6782,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 245.11 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 9abbe2d9-76df-43ba-be6a-a1f8049f4554)
-    (property "Reference" "K33" (id 0) (at 516.89 239.1918 0)
+    (property "Reference" "K34" (id 0) (at 516.89 239.1918 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 247.65 0)
@@ -6817,7 +6817,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 529.59 191.77 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid a454f738-dae0-4e06-97a4-0b960b7fab42)
-    (property "Reference" "D18" (id 0) (at 531.622 190.6016 90)
+    (property "Reference" "D38" (id 0) (at 531.622 190.6016 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 531.622 192.913 90)
@@ -6921,7 +6921,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 250.19 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ac318d5e-f879-4077-9cbb-b620c8b6bfda)
-    (property "Reference" "D31" (id 0) (at 465.582 249.0216 90)
+    (property "Reference" "D20" (id 0) (at 465.582 249.0216 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 251.333 90)
@@ -6940,7 +6940,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 449.58 226.06 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid b0eba8a8-e06b-40e5-8a99-fe7047a6734f)
-    (property "Reference" "K25" (id 0) (at 449.58 220.1418 0)
+    (property "Reference" "K12" (id 0) (at 449.58 220.1418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 449.58 228.6 0)
@@ -7013,7 +7013,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 167.64 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid b2f42585-875a-4fbc-adda-9dcb0ef0a216)
-    (property "Reference" "K11" (id 0) (at 516.89 161.7218 0)
+    (property "Reference" "K30" (id 0) (at 516.89 161.7218 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 170.18 0)
@@ -7082,7 +7082,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 538.48 148.59 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ba103a94-b2ad-4ce5-862f-5a103b6559a5)
-    (property "Reference" "K6" (id 0) (at 538.48 142.6718 0)
+    (property "Reference" "K36" (id 0) (at 538.48 142.6718 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 538.48 151.13 0)
@@ -7101,7 +7101,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 427.99 245.11 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ba33fe05-6ecc-4407-98d3-a74a7295fa87)
-    (property "Reference" "K29" (id 0) (at 427.99 239.1918 0)
+    (property "Reference" "K6" (id 0) (at 427.99 239.1918 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 427.99 247.65 0)
@@ -7190,7 +7190,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 231.14 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid c44ccbd9-95de-4367-8e64-76fc0f3b7e42)
-    (property "Reference" "D26" (id 0) (at 465.582 229.9716 90)
+    (property "Reference" "D19" (id 0) (at 465.582 229.9716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 232.283 90)
@@ -7282,7 +7282,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 494.03 264.16 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid cd16df7b-3bb4-4124-964d-afccd32edb2d)
-    (property "Reference" "K37" (id 0) (at 494.03 258.2418 0)
+    (property "Reference" "K28" (id 0) (at 494.03 258.2418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 494.03 266.7 0)
@@ -7301,7 +7301,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 485.14 231.14 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid cf19528b-acc0-40dc-8232-ec92c5162a16)
-    (property "Reference" "D27" (id 0) (at 487.172 229.9716 90)
+    (property "Reference" "D26" (id 0) (at 487.172 229.9716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 487.172 232.283 90)
@@ -7338,7 +7338,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 210.82 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid d8970d9e-656e-4eab-a665-162987c96698)
-    (property "Reference" "D23" (id 0) (at 510.032 209.6516 90)
+    (property "Reference" "D32" (id 0) (at 510.032 209.6516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 211.963 90)
@@ -7373,7 +7373,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 508 172.72 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid dcc456d1-beb4-42be-b9fc-e52f94b91729)
-    (property "Reference" "D11" (id 0) (at 510.032 171.5516 90)
+    (property "Reference" "D30" (id 0) (at 510.032 171.5516 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 510.032 173.863 90)
@@ -7481,7 +7481,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 463.55 269.24 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ed4d152a-8a00-46a5-8edd-6982669cb268)
-    (property "Reference" "D37" (id 0) (at 465.582 268.0716 90)
+    (property "Reference" "D21" (id 0) (at 465.582 268.0716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 465.582 270.383 90)
@@ -7500,7 +7500,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 516.89 264.16 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ef52af6b-aa0e-4a4a-919d-11208ded499d)
-    (property "Reference" "K38" (id 0) (at 516.89 258.2418 0)
+    (property "Reference" "K35" (id 0) (at 516.89 258.2418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 516.89 266.7 0)
@@ -7519,7 +7519,7 @@
   (symbol (lib_id "KBT1-rescue:D-Device") (at 440.69 269.24 90) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid f0df46e9-be5e-43b1-9957-7b16b39c8581)
-    (property "Reference" "D36" (id 0) (at 442.722 268.0716 90)
+    (property "Reference" "D14" (id 0) (at 442.722 268.0716 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "D" (id 1) (at 442.722 270.383 90)
@@ -7572,7 +7572,7 @@
   (symbol (lib_id "KBT1-rescue:KEYSW-keyboard_parts") (at 472.44 264.16 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid fb439ba3-735c-4672-892f-b5f299d1aa6c)
-    (property "Reference" "K36" (id 0) (at 472.44 258.2418 0)
+    (property "Reference" "K21" (id 0) (at 472.44 258.2418 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "KEYSW" (id 1) (at 472.44 266.7 0)
@@ -7752,119 +7752,119 @@
     (path "/00000000-0000-0000-0000-000060519a9d"
       (reference "D1") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-0000605212e5"
+    (path "/00000000-0000-0000-0000-000060539da2"
       (reference "D2") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-0000605254e0"
+    (path "/00000000-0000-0000-0000-000060547f6f"
       (reference "D3") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-0000605254f8"
+    (path "/00000000-0000-0000-0000-000060547fcf"
       (reference "D4") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/20460b92-144d-4b30-8cf9-f20cb99f7096"
+    (path "/2615556e-0ebe-4b5d-8519-51a8bb269d82"
       (reference "D5") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/958de223-acd4-489c-89b3-4870164b367b"
+    (path "/328e6651-9918-4c8b-98cd-d965e2fbd77e"
       (reference "D6") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060539da2"
+    (path "/47f8fcfb-11d7-48cd-a86c-0ef60d80638f"
       (reference "D7") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060539dba"
+    (path "/00000000-0000-0000-0000-0000605212e5"
       (reference "D8") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060539dd2"
+    (path "/00000000-0000-0000-0000-000060539dba"
       (reference "D9") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060539dea"
+    (path "/00000000-0000-0000-0000-000060547f87"
       (reference "D10") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/dcc456d1-beb4-42be-b9fc-e52f94b91729"
+    (path "/00000000-0000-0000-0000-000060547fe7"
       (reference "D11") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/957e5da9-450f-4e4d-9001-1e735d9d1e18"
+    (path "/715addf3-0acd-4874-8712-80dde2ef2ff0"
       (reference "D12") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547f6f"
+    (path "/789100e8-4e9f-448c-aae2-6650c644a27d"
       (reference "D13") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547f87"
+    (path "/f0df46e9-be5e-43b1-9957-7b16b39c8581"
       (reference "D14") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547f9f"
+    (path "/00000000-0000-0000-0000-0000605254e0"
       (reference "D15") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547fb7"
+    (path "/00000000-0000-0000-0000-000060539dd2"
       (reference "D16") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/6f977f1a-2e68-4a74-99ca-b3a31551bb2f"
+    (path "/00000000-0000-0000-0000-000060547f9f"
       (reference "D17") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/a454f738-dae0-4e06-97a4-0b960b7fab42"
+    (path "/00000000-0000-0000-0000-000060547fff"
       (reference "D18") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547fcf"
+    (path "/c44ccbd9-95de-4367-8e64-76fc0f3b7e42"
       (reference "D19") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547fe7"
+    (path "/ac318d5e-f879-4077-9cbb-b620c8b6bfda"
       (reference "D20") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060547fff"
+    (path "/ed4d152a-8a00-46a5-8edd-6982669cb268"
       (reference "D21") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/00000000-0000-0000-0000-000060548017"
+    (path "/00000000-0000-0000-0000-0000605254f8"
       (reference "D22") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/d8970d9e-656e-4eab-a665-162987c96698"
+    (path "/00000000-0000-0000-0000-000060539dea"
       (reference "D23") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/2615556e-0ebe-4b5d-8519-51a8bb269d82"
+    (path "/00000000-0000-0000-0000-000060547fb7"
       (reference "D24") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/715addf3-0acd-4874-8712-80dde2ef2ff0"
+    (path "/00000000-0000-0000-0000-000060548017"
       (reference "D25") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/c44ccbd9-95de-4367-8e64-76fc0f3b7e42"
+    (path "/cf19528b-acc0-40dc-8232-ec92c5162a16"
       (reference "D26") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/cf19528b-acc0-40dc-8232-ec92c5162a16"
+    (path "/44371215-43fe-43ed-ac9a-c7c6e9dfd1c1"
       (reference "D27") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/9517efd4-7abd-4d86-9394-cc7beea74980"
+    (path "/70f432c1-1dc8-4e7f-ae29-53933524f19d"
       (reference "D28") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/328e6651-9918-4c8b-98cd-d965e2fbd77e"
+    (path "/20460b92-144d-4b30-8cf9-f20cb99f7096"
       (reference "D29") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/789100e8-4e9f-448c-aae2-6650c644a27d"
+    (path "/dcc456d1-beb4-42be-b9fc-e52f94b91729"
       (reference "D30") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/ac318d5e-f879-4077-9cbb-b620c8b6bfda"
+    (path "/6f977f1a-2e68-4a74-99ca-b3a31551bb2f"
       (reference "D31") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/44371215-43fe-43ed-ac9a-c7c6e9dfd1c1"
+    (path "/d8970d9e-656e-4eab-a665-162987c96698"
       (reference "D32") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/1d2c0bd5-77f5-4277-88e3-8c8bc719abf6"
+    (path "/9517efd4-7abd-4d86-9394-cc7beea74980"
       (reference "D33") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
-    (path "/5ef3210e-de8e-444d-b7a3-c6a85e5c3868"
-      (reference "D34") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
-    )
-    (path "/47f8fcfb-11d7-48cd-a86c-0ef60d80638f"
-      (reference "D35") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
-    )
-    (path "/f0df46e9-be5e-43b1-9957-7b16b39c8581"
-      (reference "D36") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
-    )
-    (path "/ed4d152a-8a00-46a5-8edd-6982669cb268"
-      (reference "D37") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
-    )
-    (path "/70f432c1-1dc8-4e7f-ae29-53933524f19d"
-      (reference "D38") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+    (path "/1d2c0bd5-77f5-4277-88e3-8c8bc719abf6"
+      (reference "D34") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
     (path "/44505ef1-e05a-4c7f-b3cb-8fc8aa268de5"
-      (reference "D39") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+      (reference "D35") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+    )
+    (path "/958de223-acd4-489c-89b3-4870164b367b"
+      (reference "D36") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+    )
+    (path "/957e5da9-450f-4e4d-9001-1e735d9d1e18"
+      (reference "D37") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+    )
+    (path "/a454f738-dae0-4e06-97a4-0b960b7fab42"
+      (reference "D38") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
+    )
+    (path "/5ef3210e-de8e-444d-b7a3-c6a85e5c3868"
+      (reference "D39") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
     )
     (path "/f3cc7ab8-c40c-45a6-9789-37cfaf8bc1a0"
       (reference "FB1") (unit 1) (value "100 @ 100 MHz") (footprint "Resistor_SMD:R_0805_2012Metric")
@@ -7893,115 +7893,115 @@
     (path "/00000000-0000-0000-0000-00006051f173"
       (reference "K1") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060521033"
+    (path "/00000000-0000-0000-0000-000060539a78"
       (reference "K2") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060525206"
+    (path "/00000000-0000-0000-0000-000060547ba5"
       (reference "K3") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-0000605254ec"
+    (path "/00000000-0000-0000-0000-000060547fc3"
       (reference "K4") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/21e5832e-fb6f-44ee-a1c4-4b55c61d322c"
+    (path "/33db506f-011a-4f09-866d-ad73291f3bee"
       (reference "K5") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/ba103a94-b2ad-4ce5-862f-5a103b6559a5"
+    (path "/ba33fe05-6ecc-4407-98d3-a74a7295fa87"
       (reference "K6") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060539a78"
+    (path "/06ab1612-cdee-442c-a9d9-01ccb26ab4fe"
       (reference "K7") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060539dae"
+    (path "/00000000-0000-0000-0000-000060521033"
       (reference "K8") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060539dc6"
+    (path "/00000000-0000-0000-0000-000060539dae"
       (reference "K9") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060539dde"
+    (path "/00000000-0000-0000-0000-000060547f7b"
       (reference "K10") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/b2f42585-875a-4fbc-adda-9dcb0ef0a216"
+    (path "/00000000-0000-0000-0000-000060547fdb"
       (reference "K11") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/0d027d77-9290-4fa3-9a27-0aab35c2dbbc"
+    (path "/b0eba8a8-e06b-40e5-8a99-fe7047a6734f"
       (reference "K12") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547ba5"
+    (path "/527a53c1-5bfa-4323-89b9-2bd32021c0c3"
       (reference "K13") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547f7b"
+    (path "/3d4d984d-986c-45e2-8a26-87792bb9758a"
       (reference "K14") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547f93"
+    (path "/00000000-0000-0000-0000-000060525206"
       (reference "K15") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547fab"
+    (path "/00000000-0000-0000-0000-000060539dc6"
       (reference "K16") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/106ea308-4f67-40a2-b86a-cc3f3f92c487"
+    (path "/00000000-0000-0000-0000-000060547f93"
       (reference "K17") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/0f84e3ee-75ae-4e0b-abe8-0008e09dea61"
+    (path "/00000000-0000-0000-0000-000060547ff3"
       (reference "K18") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547fc3"
+    (path "/53881540-d953-4b99-a1f3-45ded9893d14"
       (reference "K19") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547fdb"
+    (path "/12d5d00d-c3e6-4a7f-bded-98b3fc7f372a"
       (reference "K20") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-000060547ff3"
+    (path "/fb439ba3-735c-4672-892f-b5f299d1aa6c"
       (reference "K21") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/00000000-0000-0000-0000-00006054800b"
+    (path "/00000000-0000-0000-0000-0000605254ec"
       (reference "K22") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/141fe767-f83c-44ea-b9d5-da9d5724b965"
+    (path "/00000000-0000-0000-0000-000060539dde"
       (reference "K23") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/33db506f-011a-4f09-866d-ad73291f3bee"
+    (path "/00000000-0000-0000-0000-000060547fab"
       (reference "K24") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/b0eba8a8-e06b-40e5-8a99-fe7047a6734f"
+    (path "/00000000-0000-0000-0000-00006054800b"
       (reference "K25") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/53881540-d953-4b99-a1f3-45ded9893d14"
+    (path "/004e8f37-5620-4653-b688-b97716e6df29"
       (reference "K26") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/004e8f37-5620-4653-b688-b97716e6df29"
+    (path "/5a648d42-a89b-4b1f-9066-ea0c47264c67"
       (reference "K27") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/6cea1147-26ba-4dac-a86e-6d7e92d28384"
+    (path "/cd16df7b-3bb4-4124-964d-afccd32edb2d"
       (reference "K28") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/ba33fe05-6ecc-4407-98d3-a74a7295fa87"
+    (path "/21e5832e-fb6f-44ee-a1c4-4b55c61d322c"
       (reference "K29") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/527a53c1-5bfa-4323-89b9-2bd32021c0c3"
+    (path "/b2f42585-875a-4fbc-adda-9dcb0ef0a216"
       (reference "K30") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/12d5d00d-c3e6-4a7f-bded-98b3fc7f372a"
+    (path "/106ea308-4f67-40a2-b86a-cc3f3f92c487"
       (reference "K31") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/5a648d42-a89b-4b1f-9066-ea0c47264c67"
+    (path "/141fe767-f83c-44ea-b9d5-da9d5724b965"
       (reference "K32") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/9abbe2d9-76df-43ba-be6a-a1f8049f4554"
+    (path "/6cea1147-26ba-4dac-a86e-6d7e92d28384"
       (reference "K33") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/06ab1612-cdee-442c-a9d9-01ccb26ab4fe"
+    (path "/9abbe2d9-76df-43ba-be6a-a1f8049f4554"
       (reference "K34") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/3d4d984d-986c-45e2-8a26-87792bb9758a"
+    (path "/ef52af6b-aa0e-4a4a-919d-11208ded499d"
       (reference "K35") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/fb439ba3-735c-4672-892f-b5f299d1aa6c"
+    (path "/ba103a94-b2ad-4ce5-862f-5a103b6559a5"
       (reference "K36") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/cd16df7b-3bb4-4124-964d-afccd32edb2d"
+    (path "/0d027d77-9290-4fa3-9a27-0aab35c2dbbc"
       (reference "K37") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
-    (path "/ef52af6b-aa0e-4a4a-919d-11208ded499d"
+    (path "/0f84e3ee-75ae-4e0b-abe8-0008e09dea61"
       (reference "K38") (unit 1) (value "KEYSW") (footprint "6:SW_Hotswap_Kailh_MX_plated")
     )
     (path "/b7dff452-d00c-4a98-b808-fa53e23c81a7"
