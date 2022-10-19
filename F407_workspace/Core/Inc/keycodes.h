@@ -38,6 +38,12 @@
 #define KEY_ASTERISK 0x55
 #define KEY_POUND    0x32
 
+#define KEY_BACKSPACE 0x2A
+
+
+// modifiers. FF prefix to differentiate
+#define KEY_SHIFT 0xFF02
+
 
 
 
