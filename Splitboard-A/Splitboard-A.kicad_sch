@@ -6538,7 +6538,7 @@
     (uuid 5ef3210e-de8e-444d-b7a3-c6a85e5c3868)
     (property "Reference" "D39" (id 0) (at 77.7875 260.35 0))
     (property "Value" "D_Schottky" (id 1) (at 77.7875 262.89 0))
-    (property "Footprint" "Diode_SMD:D_SOD-123" (id 2) (at 77.47 266.7 0)
+    (property "Footprint" "Diode_SMD:D_SOD-323" (id 2) (at 77.47 266.7 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 77.47 266.7 0)
@@ -7910,7 +7910,7 @@
     (uuid cddbd041-5659-459c-b344-e0c4b795f57d)
     (property "Reference" "D41" (id 0) (at 338.7725 322.58 0))
     (property "Value" "D_Schottky" (id 1) (at 338.7725 325.12 0))
-    (property "Footprint" "Diode_SMD:D_SOD-123" (id 2) (at 339.09 328.93 0)
+    (property "Footprint" "Diode_SMD:D_SOD-323" (id 2) (at 339.09 328.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 339.09 328.93 0)
@@ -8330,7 +8330,7 @@
     (property "Value" "D_Schottky" (id 1) (at 124.46 261.3024 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Diode_SMD:D_SOD-123" (id 2) (at 121.92 260.35 0)
+    (property "Footprint" "Diode_SMD:D_SOD-323" (id 2) (at 121.92 260.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 121.92 260.35 0)
@@ -8691,13 +8691,13 @@
       (reference "D38") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
     (path "/5ef3210e-de8e-444d-b7a3-c6a85e5c3868"
-      (reference "D39") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
+      (reference "D39") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-323")
     )
     (path "/f739874a-498f-4d96-a0d9-129228bcf5ee"
-      (reference "D40") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
+      (reference "D40") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-323")
     )
     (path "/cddbd041-5659-459c-b344-e0c4b795f57d"
-      (reference "D41") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
+      (reference "D41") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-323")
     )
     (path "/f3cc7ab8-c40c-45a6-9789-37cfaf8bc1a0"
       (reference "FB1") (unit 1) (value "100 @ 100 MHz") (footprint "Resistor_SMD:R_0805_2012Metric")

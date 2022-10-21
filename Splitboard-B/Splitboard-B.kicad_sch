@@ -6135,9 +6135,9 @@
   (symbol (lib_id "Device:D_Schottky") (at 222.25 233.68 180) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid eb775797-25c2-4116-bc6c-2239b2291c1a)
-    (property "Reference" "D39" (id 0) (at 222.5675 227.584 0))
-    (property "Value" "D_Schottky" (id 1) (at 222.5675 230.124 0))
-    (property "Footprint" "Diode_SMD:D_SOD-123" (id 2) (at 222.25 233.68 0)
+    (property "Reference" "D39" (id 0) (at 222.5675 227.33 0))
+    (property "Value" "D_Schottky" (id 1) (at 222.5675 229.87 0))
+    (property "Footprint" "Diode_SMD:D_SOD-323" (id 2) (at 222.25 233.68 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 222.25 233.68 0)
@@ -6569,7 +6569,7 @@
       (reference "D38") (unit 1) (value "D") (footprint "Diode_SMD:D_SOD-123")
     )
     (path "/eb775797-25c2-4116-bc6c-2239b2291c1a"
-      (reference "D39") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-123")
+      (reference "D39") (unit 1) (value "D_Schottky") (footprint "Diode_SMD:D_SOD-323")
     )
     (path "/f5b7f673-4d4e-4451-93c3-b001e2dc606f"
       (reference "FB1") (unit 1) (value "100 @ 100 MHz") (footprint "Resistor_SMD:R_0805_2012Metric")
