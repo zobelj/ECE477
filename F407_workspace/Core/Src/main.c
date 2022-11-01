@@ -456,6 +456,14 @@ int main(void)
   ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
   ILI9341_FillScreen(WHITE);
 
+  char writeBuff[20];
+  sprintf(writeBuff, "Words per minute: ");
+  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
+  switch_lcd();
+  sprintf(writeBuff, "Number of turns: ");
+  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
+  switch_lcd();
+
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim6);
@@ -475,8 +483,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   char buffer1[10];
   char buffer2[10];
-  //char lastBuff[10];
-  //sprintf(lastBuff, "aaa");
+
 
   while (1)
   {
@@ -484,7 +491,7 @@ int main(void)
 
 	  // draw the counter to the lcd
 	  sprintf(buffer1, "%3d", (int)wpm);
-	  ILI9341_DrawText(buffer1, FONT4, 90, 110, BLACK, WHITE);
+	  ILI9341_DrawText(buffer1, FONT4, 190, 110, BLACK, WHITE);
 
 	  switch_lcd();
 
@@ -492,7 +499,7 @@ int main(void)
 
 	  // draw the counter to the lcd
 	  sprintf(buffer2, "%d", turn_counter);
-	  ILI9341_DrawText(buffer2, FONT4, 90, 110, BLACK, WHITE);
+	  ILI9341_DrawText(buffer2, FONT4, 190, 110, BLACK, WHITE);
 
 	  switch_lcd();
 
