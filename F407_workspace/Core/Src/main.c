@@ -55,11 +55,19 @@ DMA_HandleTypeDef hdma_spi1_tx;
 
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 
 /* USER CODE BEGIN PV */
 
 int lcd_counter;
 int turn_counter;
+
+// WPM Counters
+unsigned int charCount = 0;
+unsigned int charsInCycle = 0;
+unsigned int numCycles = 0;
+unsigned int dryCycles = 0;
+float wpm = 0;
 
 
 // rotary direction
@@ -142,6 +150,7 @@ static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_I2C2_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 
 // local keypad scanning
@@ -176,7 +185,15 @@ void scan_keypad() {
   // scan local cols
   for(int i = 0; i < 4; i++) {
     if(local_cols & (1 << i)) {
-      keypresses[row][i] = 1;
+    	if (keypresses[row][i] != 1) {
+    		keypresses[row][i] = 1;
+    	    // WPM timer not enabled
+    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+    	    	HAL_TIM_Base_Start_IT(&htim7);
+    	    }
+    	    charCount++;
+    	    charsInCycle++;
+    	}
     }
     else {
       keypresses[row][i] = 0;
@@ -186,7 +203,15 @@ void scan_keypad() {
   // scan expander cols
   for(int i = 0; i < 4; i++) {
     if(expander_cols & (1 << i)) {
-      keypresses_2[row][i] = 1;
+      if (keypresses_2[row][i] != 1) {
+    	  keypresses_2[row][i] = 1;
+    	  // WPM timer not enabled
+    	  if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+    		  HAL_TIM_Base_Start_IT(&htim7);
+    	  }
+    	  charCount++;
+    	  charsInCycle++;
+      }
     }
     else {
       keypresses_2[row][i] = 0;
@@ -418,15 +443,18 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_I2C2_Init();
   MX_SPI1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize the LCDs
   ILI9341_Init();
   ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
+  ILI9341_FillScreen(WHITE);
 
   switch_lcd();
   ILI9341_Init();
   ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
+  ILI9341_FillScreen(WHITE);
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
@@ -447,21 +475,25 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   char buffer1[10];
   char buffer2[10];
+  //char lastBuff[10];
+  //sprintf(lastBuff, "aaa");
+
   while (1)
   {
-	  ILI9341_FillScreen(WHITE);
+	  //ILI9341_FillScreen(WHITE);
 
 	  // draw the counter to the lcd
-	  sprintf(buffer1, "%d", lcd_counter++);
+	  sprintf(buffer1, "%3d", (int)wpm);
 	  ILI9341_DrawText(buffer1, FONT4, 90, 110, BLACK, WHITE);
 
 	  switch_lcd();
 
-	  ILI9341_FillScreen(WHITE);
+	  //ILI9341_FillScreen(WHITE);
 
 	  // draw the counter to the lcd
 	  sprintf(buffer2, "%d", turn_counter);
 	  ILI9341_DrawText(buffer2, FONT4, 90, 110, BLACK, WHITE);
+
 	  switch_lcd();
 
     /* USER CODE END WHILE */
@@ -679,6 +711,44 @@ static void MX_TIM6_Init(void)
 }
 
 /**
+  * @brief TIM7 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM7_Init(void)
+{
+
+  /* USER CODE BEGIN TIM7_Init 0 */
+
+  /* USER CODE END TIM7_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM7_Init 1 */
+
+  /* USER CODE END TIM7_Init 1 */
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 36000 - 1;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 4000 - 1;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM7_Init 2 */
+
+  /* USER CODE END TIM7_Init 2 */
+
+}
+
+/**
   * Enable DMA controller clock
   */
 static void MX_DMA_Init(void)
@@ -769,6 +839,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 		/* Rotary Encoder */
 		scan_rotary();
+	}
+
+	// WPM Calculator
+	else if (htim == &htim7) {
+		// check to see if any keys pressed
+		if (charsInCycle == 0) {
+			dryCycles++;
+			// shut down if 5 cycles with no presses
+			if (dryCycles == 5) {
+				charCount = 0;
+				charsInCycle = 0;
+				dryCycles = 0;
+				numCycles = 0;
+				HAL_TIM_Base_Stop_IT(&htim7);
+			}
+		}
+		// calculate wpm
+		numCycles++;
+		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
+		charsInCycle = 0;
 	}
 }
 
