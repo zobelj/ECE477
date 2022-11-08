@@ -68,6 +68,7 @@ unsigned int charsInCycle = 0;
 unsigned int numCycles = 0;
 unsigned int dryCycles = 0;
 float wpm = 0;
+int writeScreen = 1;
 
 
 // rotary direction
@@ -448,20 +449,25 @@ int main(void)
 
   // Initialize the LCDs
   ILI9341_Init();
-  ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
   ILI9341_FillScreen(WHITE);
 
   switch_lcd();
   ILI9341_Init();
-  ILI9341_SetRotation(SCREEN_HORIZONTAL_1);
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
   ILI9341_FillScreen(WHITE);
 
   char writeBuff[20];
-  sprintf(writeBuff, "Words per minute: ");
-  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
+  sprintf(writeBuff, "Words");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 10, BLACK, WHITE);
+  sprintf(writeBuff, "Per");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 60, BLACK, WHITE);
+  sprintf(writeBuff, "Minute:");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 110, BLACK, WHITE);
+
   switch_lcd();
   sprintf(writeBuff, "Number of turns: ");
-  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT6, 25, 110, BLACK, WHITE);
   switch_lcd();
 
   // start the timer interrupt
@@ -490,8 +496,11 @@ int main(void)
 	  //ILI9341_FillScreen(WHITE);
 
 	  // draw the counter to the lcd
-	  sprintf(buffer1, "%3d", (int)wpm);
-	  ILI9341_DrawText(buffer1, FONT4, 190, 110, BLACK, WHITE);
+	  if (writeScreen) {
+		  sprintf(buffer1, "%3d", (int)wpm);
+		  ILI9341_DrawText(buffer1, FONT5, 	40, 160, BLACK, WHITE);
+		  writeScreen = 0;
+	  }
 
 	  switch_lcd();
 
@@ -499,7 +508,7 @@ int main(void)
 
 	  // draw the counter to the lcd
 	  sprintf(buffer2, "%d", turn_counter);
-	  ILI9341_DrawText(buffer2, FONT4, 190, 110, BLACK, WHITE);
+	  ILI9341_DrawText(buffer2, FONT6, 190, 110, BLACK, WHITE);
 
 	  switch_lcd();
 
@@ -737,7 +746,7 @@ static void MX_TIM7_Init(void)
   htim7.Instance = TIM7;
   htim7.Init.Prescaler = 36000 - 1;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 4000 - 1;
+  htim7.Init.Period = 2000 - 1;
   htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
@@ -864,8 +873,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		}
 		// calculate wpm
 		numCycles++;
-		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
+		wpm = (charCount / 5.0f) / ((1.0f * numCycles) / 60.0f);
 		charsInCycle = 0;
+		writeScreen = 1;
 	}
 }
 
