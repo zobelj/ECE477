@@ -459,11 +459,11 @@ int main(void)
 
   char writeBuff[20];
   sprintf(writeBuff, "Words");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 10, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
   sprintf(writeBuff, "Per");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 60, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
   sprintf(writeBuff, "Minute:");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 110, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
 
   switch_lcd();
   sprintf(writeBuff, "Number of turns: ");
@@ -497,8 +497,8 @@ int main(void)
 
 	  // draw the counter to the lcd
 	  if (writeScreen) {
-		  sprintf(buffer1, "%3d", (int)wpm);
-		  ILI9341_DrawText(buffer1, FONT5, 	40, 160, BLACK, WHITE);
+		  sprintf(buffer1, "%-3d", (int)wpm);
+		  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
 		  writeScreen = 0;
 	  }
 

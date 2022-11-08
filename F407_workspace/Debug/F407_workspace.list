@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         0000ca88  08000190  08000190  00010190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       0000a61c  0800cc18  0800cc18  0001cc18  2**2
+  2 .rodata       0000a620  0800cc18  0800cc18  0001cc18  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08017234  08017234  000301a0  2**0
+  3 .ARM.extab    00000000  08017238  08017238  000301a0  2**0
                   CONTENTS
-  4 .ARM          00000008  08017234  08017234  00027234  2**2
+  4 .ARM          00000008  08017238  08017238  00027238  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  0801723c  0801723c  000301a0  2**0
+  5 .preinit_array 00000000  08017240  08017240  000301a0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0801723c  0801723c  0002723c  2**2
+  6 .init_array   00000004  08017240  08017240  00027240  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08017240  08017240  00027240  2**2
+  7 .fini_array   00000004  08017244  08017244  00027244  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         000001a0  20000000  08017244  00030000  2**2
+  8 .data         000001a0  20000000  08017248  00030000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  000301a0  2**0
                   CONTENTS
@@ -2602,11 +2602,11 @@ void record_keys() {
  80013bc:	200003fc 	.word	0x200003fc
  80013c0:	200003cc 	.word	0x200003cc
  80013c4:	200003d4 	.word	0x200003d4
- 80013c8:	08017188 	.word	0x08017188
+ 80013c8:	0801718c 	.word	0x0801718c
  80013cc:	200003e8 	.word	0x200003e8
- 80013d0:	080171b0 	.word	0x080171b0
+ 80013d0:	080171b4 	.word	0x080171b4
  80013d4:	200003f8 	.word	0x200003f8
- 80013d8:	080171d8 	.word	0x080171d8
+ 80013d8:	080171dc 	.word	0x080171dc
 
 080013dc <add_keypress>:
 
@@ -2861,13 +2861,13 @@ int main(void)
  8001552:	494c      	ldr	r1, [pc, #304]	; (8001684 <main+0x18c>)
  8001554:	4618      	mov	r0, r3
  8001556:	f00a fee5 	bl	800c324 <siprintf>
-  ILI9341_DrawText(writeBuff, FONT5, 25, 10, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
  800155a:	f107 001c 	add.w	r0, r7, #28
  800155e:	f64f 73ff 	movw	r3, #65535	; 0xffff
  8001562:	9301      	str	r3, [sp, #4]
  8001564:	2300      	movs	r3, #0
  8001566:	9300      	str	r3, [sp, #0]
- 8001568:	230a      	movs	r3, #10
+ 8001568:	2355      	movs	r3, #85	; 0x55
  800156a:	2219      	movs	r2, #25
  800156c:	4946      	ldr	r1, [pc, #280]	; (8001688 <main+0x190>)
  800156e:	f7ff f876 	bl	800065e <ILI9341_DrawText>
@@ -2876,13 +2876,13 @@ int main(void)
  8001576:	4945      	ldr	r1, [pc, #276]	; (800168c <main+0x194>)
  8001578:	4618      	mov	r0, r3
  800157a:	f00a fed3 	bl	800c324 <siprintf>
-  ILI9341_DrawText(writeBuff, FONT5, 25, 60, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
  800157e:	f107 001c 	add.w	r0, r7, #28
  8001582:	f64f 73ff 	movw	r3, #65535	; 0xffff
  8001586:	9301      	str	r3, [sp, #4]
  8001588:	2300      	movs	r3, #0
  800158a:	9300      	str	r3, [sp, #0]
- 800158c:	233c      	movs	r3, #60	; 0x3c
+ 800158c:	2387      	movs	r3, #135	; 0x87
  800158e:	2219      	movs	r2, #25
  8001590:	493d      	ldr	r1, [pc, #244]	; (8001688 <main+0x190>)
  8001592:	f7ff f864 	bl	800065e <ILI9341_DrawText>
@@ -2891,13 +2891,13 @@ int main(void)
  800159a:	493d      	ldr	r1, [pc, #244]	; (8001690 <main+0x198>)
  800159c:	4618      	mov	r0, r3
  800159e:	f00a fec1 	bl	800c324 <siprintf>
-  ILI9341_DrawText(writeBuff, FONT5, 25, 110, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
  80015a2:	f107 001c 	add.w	r0, r7, #28
  80015a6:	f64f 73ff 	movw	r3, #65535	; 0xffff
  80015aa:	9301      	str	r3, [sp, #4]
  80015ac:	2300      	movs	r3, #0
  80015ae:	9300      	str	r3, [sp, #0]
- 80015b0:	236e      	movs	r3, #110	; 0x6e
+ 80015b0:	23b9      	movs	r3, #185	; 0xb9
  80015b2:	2219      	movs	r2, #25
  80015b4:	4934      	ldr	r1, [pc, #208]	; (8001688 <main+0x190>)
  80015b6:	f7ff f852 	bl	800065e <ILI9341_DrawText>
@@ -2966,7 +2966,7 @@ int main(void)
  8001618:	681b      	ldr	r3, [r3, #0]
  800161a:	2b00      	cmp	r3, #0
  800161c:	d01b      	beq.n	8001656 <main+0x15e>
-		  sprintf(buffer1, "%3d", (int)wpm);
+		  sprintf(buffer1, "%-3d", (int)wpm);
  800161e:	4b28      	ldr	r3, [pc, #160]	; (80016c0 <main+0x1c8>)
  8001620:	edd3 7a00 	vldr	s15, [r3]
  8001624:	eefd 7ae7 	vcvt.s32.f32	s15, s15
@@ -2975,14 +2975,14 @@ int main(void)
  8001630:	4924      	ldr	r1, [pc, #144]	; (80016c4 <main+0x1cc>)
  8001632:	4618      	mov	r0, r3
  8001634:	f00a fe76 	bl	800c324 <siprintf>
-		  ILI9341_DrawText(buffer1, FONT5, 	40, 160, BLACK, WHITE);
+		  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
  8001638:	f107 0010 	add.w	r0, r7, #16
  800163c:	f64f 73ff 	movw	r3, #65535	; 0xffff
  8001640:	9301      	str	r3, [sp, #4]
  8001642:	2300      	movs	r3, #0
  8001644:	9300      	str	r3, [sp, #0]
- 8001646:	23a0      	movs	r3, #160	; 0xa0
- 8001648:	2228      	movs	r2, #40	; 0x28
+ 8001646:	23b9      	movs	r3, #185	; 0xb9
+ 8001648:	22a5      	movs	r2, #165	; 0xa5
  800164a:	490f      	ldr	r1, [pc, #60]	; (8001688 <main+0x190>)
  800164c:	f7ff f807 	bl	800065e <ILI9341_DrawText>
 		  writeScreen = 0;
@@ -3020,11 +3020,11 @@ int main(void)
 	  if (writeScreen) {
  8001682:	e7c8      	b.n	8001616 <main+0x11e>
  8001684:	0800cc18 	.word	0x0800cc18
- 8001688:	08011ba4 	.word	0x08011ba4
+ 8001688:	08011ba8 	.word	0x08011ba8
  800168c:	0800cc20 	.word	0x0800cc20
  8001690:	0800cc24 	.word	0x0800cc24
  8001694:	0800cc2c 	.word	0x0800cc2c
- 8001698:	0800cc80 	.word	0x0800cc80
+ 8001698:	0800cc84 	.word	0x0800cc84
  800169c:	200002c8 	.word	0x200002c8
  80016a0:	20000310 	.word	0x20000310
  80016a4:	200003d0 	.word	0x200003d0
@@ -3036,7 +3036,7 @@ int main(void)
  80016bc:	2000001c 	.word	0x2000001c
  80016c0:	200003b8 	.word	0x200003b8
  80016c4:	0800cc40 	.word	0x0800cc40
- 80016c8:	0800cc44 	.word	0x0800cc44
+ 80016c8:	0800cc48 	.word	0x0800cc48
 
 080016cc <SystemClock_Config>:
 /**
@@ -5003,7 +5003,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  800212c:	200001a0 	.word	0x200001a0
   ldr r2, =_sidata
- 8002130:	08017244 	.word	0x08017244
+ 8002130:	08017248 	.word	0x08017248
   ldr r2, =_sbss
  8002134:	200001a0 	.word	0x200001a0
   ldr r4, =_ebss
@@ -6855,7 +6855,7 @@ static uint32_t DMA_CalcBaseAndBitshift(DMA_HandleTypeDef *hdma)
  8002acc:	4770      	bx	lr
  8002ace:	bf00      	nop
  8002ad0:	aaaaaaab 	.word	0xaaaaaaab
- 8002ad4:	080171f8 	.word	0x080171f8
+ 8002ad4:	080171fc 	.word	0x080171fc
 
 08002ad8 <DMA_CheckFifoParam>:
   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
@@ -19327,7 +19327,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  80073be:	bf00      	nop
  80073c0:	40023c00 	.word	0x40023c00
  80073c4:	40023800 	.word	0x40023800
- 80073c8:	080171e0 	.word	0x080171e0
+ 80073c8:	080171e4 	.word	0x080171e4
  80073cc:	20000020 	.word	0x20000020
  80073d0:	20000024 	.word	0x20000024
 
@@ -19629,7 +19629,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8007614:	4618      	mov	r0, r3
  8007616:	bd80      	pop	{r7, pc}
  8007618:	40023800 	.word	0x40023800
- 800761c:	080171f0 	.word	0x080171f0
+ 800761c:	080171f4 	.word	0x080171f4
 
 08007620 <HAL_SPI_Init>:
   * @param  hspi pointer to a SPI_HandleTypeDef structure that contains
@@ -31714,7 +31714,7 @@ uint8_t * USBD_FS_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length
  800baf8:	bd80      	pop	{r7, pc}
  800bafa:	bf00      	nop
  800bafc:	200006ec 	.word	0x200006ec
- 800bb00:	0800cc48 	.word	0x0800cc48
+ 800bb00:	0800cc4c 	.word	0x0800cc4c
 
 0800bb04 <USBD_FS_ManufacturerStrDescriptor>:
   * @param  speed : Current device speed
@@ -31743,7 +31743,7 @@ uint8_t * USBD_FS_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *l
  800bb20:	46bd      	mov	sp, r7
  800bb22:	bd80      	pop	{r7, pc}
  800bb24:	200006ec 	.word	0x200006ec
- 800bb28:	0800cc50 	.word	0x0800cc50
+ 800bb28:	0800cc54 	.word	0x0800cc54
 
 0800bb2c <USBD_FS_SerialStrDescriptor>:
   * @param  speed : Current device speed
@@ -31822,7 +31822,7 @@ uint8_t * USBD_FS_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  800bb80:	bd80      	pop	{r7, pc}
  800bb82:	bf00      	nop
  800bb84:	200006ec 	.word	0x200006ec
- 800bb88:	0800cc64 	.word	0x0800cc64
+ 800bb88:	0800cc68 	.word	0x0800cc68
 
 0800bb8c <USBD_FS_InterfaceStrDescriptor>:
   * @param  speed : Current device speed
@@ -31866,7 +31866,7 @@ uint8_t * USBD_FS_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *leng
  800bbbc:	bd80      	pop	{r7, pc}
  800bbbe:	bf00      	nop
  800bbc0:	200006ec 	.word	0x200006ec
- 800bbc4:	0800cc70 	.word	0x0800cc70
+ 800bbc4:	0800cc74 	.word	0x0800cc74
 
 0800bbc8 <Get_SerialNum>:
   * @brief  Create the serial number string descriptor
@@ -33166,10 +33166,10 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c2fe:	4798      	blx	r3
  800c300:	3601      	adds	r6, #1
  800c302:	e7f2      	b.n	800c2ea <__libc_init_array+0x1e>
- 800c304:	0801723c 	.word	0x0801723c
- 800c308:	0801723c 	.word	0x0801723c
- 800c30c:	0801723c 	.word	0x0801723c
- 800c310:	08017240 	.word	0x08017240
+ 800c304:	08017240 	.word	0x08017240
+ 800c308:	08017240 	.word	0x08017240
+ 800c30c:	08017240 	.word	0x08017240
+ 800c310:	08017244 	.word	0x08017244
 
 0800c314 <memset>:
  800c314:	4402      	add	r2, r0
@@ -33487,11 +33487,11 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c600:	f000 f87a 	bl	800c6f8 <_printf_i>
  800c604:	e7eb      	b.n	800c5de <_svfiprintf_r+0x1c2>
  800c606:	bf00      	nop
- 800c608:	08017200 	.word	0x08017200
- 800c60c:	0801720a 	.word	0x0801720a
+ 800c608:	08017204 	.word	0x08017204
+ 800c60c:	0801720e 	.word	0x0801720e
  800c610:	00000000 	.word	0x00000000
  800c614:	0800c365 	.word	0x0800c365
- 800c618:	08017206 	.word	0x08017206
+ 800c618:	0801720a 	.word	0x0801720a
 
 0800c61c <_printf_common>:
  800c61c:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -33827,8 +33827,8 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c934:	f104 0619 	add.w	r6, r4, #25
  800c938:	e7f5      	b.n	800c926 <_printf_i+0x22e>
  800c93a:	bf00      	nop
- 800c93c:	08017211 	.word	0x08017211
- 800c940:	08017222 	.word	0x08017222
+ 800c93c:	08017215 	.word	0x08017215
+ 800c940:	08017226 	.word	0x08017226
 
 0800c944 <memcpy>:
  800c944:	440a      	add	r2, r1
