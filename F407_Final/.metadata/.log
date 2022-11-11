@@ -1,0 +1,26 @@
+!SESSION 2022-11-09 15:39:59.887 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/joe/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -data /Users/joe/Dropbox/ECE477/ECE477/F407_Final -keyring /Users/joe/.eclipse_keyring
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-11-09 15:40:08.174
+!MESSAGE Log4j initialized with config file /Users/joe/Dropbox/ECE477/ECE477/F407_Final/.metadata/.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-11-09 15:40:12.451
+!MESSAGE Started RMI Server, listening on port 41338
+!SESSION 2022-11-09 15:41:49.642 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/joe/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/joe/.eclipse_keyring
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-11-09 15:41:56.535
+!MESSAGE Log4j initialized with config file /Users/joe/Dropbox/ECE477/ECE477/F407_Final/.metadata/.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-11-09 15:42:01.308
+!MESSAGE Started RMI Server, listening on port 41337
