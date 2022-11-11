@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "USBUF02W6")(type "Legacy")(uri "${KIPRJMOD}/ul_USBUF02W6/KiCAD/2022-10-05_22-36-43/2022-10-05_22-36-43.lib")(options "")(descr ""))
+  (lib (name "SIT2024BA")(type "Legacy")(uri "${KIPRJMOD}/SIT2024BA/KiCAD/2022-10-06_01-32-13/2022-10-06_01-32-13.lib")(options "")(descr ""))
+)

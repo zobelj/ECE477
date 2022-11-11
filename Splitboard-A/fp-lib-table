@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "ul_USBUF02W6")(type "KiCad")(uri "${KIPRJMOD}/ul_USBUF02W6/KiCAD/2022-10-05_22-36-43/footprints.pretty")(options "")(descr ""))
+  (lib (name "SIT2024BA")(type "KiCad")(uri "${KIPRJMOD}/SIT2024BA/KiCAD/2022-10-06_01-32-13/footprints.pretty")(options "")(descr ""))
+)
