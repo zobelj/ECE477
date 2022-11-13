@@ -133,11 +133,11 @@ void scan_keypad() {
     	if (keypresses1[row][i] != 1) {
     		keypresses1[row][i] = 1;
     	    // WPM timer not enabled
-    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
-    	    	HAL_TIM_Base_Start_IT(&htim7);
-    	    }
-    	    charCount++;
-    	    charsInCycle++;
+//    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+//    	    	HAL_TIM_Base_Start_IT(&htim7);
+//    	    }
+//    	    charCount++;
+//    	    charsInCycle++;
     	}
     }
     else {
@@ -169,35 +169,35 @@ void scan_keypad() {
 void set_rows() {
   // update row value
   row = (row + 1) % nRows1;
+  HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_SET);
 
   // use global variable row to set the correct row to low and last row back to high
   switch(row) {
     case 0:
-      HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_RESET);
       break;
     case 1:
-      HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_RESET);
       break;
     case 2:
-      HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_RESET);
       break;
     case 3:
-      HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_RESET);
       break;
     case 4:
-      HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_RESET);
       break;
     case 5:
-      HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_RESET);
 	  break;
     case 6:
-      HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_RESET);
 	  break;
   }
@@ -258,10 +258,10 @@ void record_keys() {
 
 void add_keypress(char key) {
 
-	if(key == (char)KEY_LSHIFT) {
-		keyboardhid.MODIFIER = 2;
-		return;
-	}
+//	if(key == (char)KEY_LSHIFT) {
+//		keyboardhid.MODIFIER = 2;
+//		return;
+//	}
 
 	switch(keycodeNum) {
 			case 1:
@@ -302,8 +302,6 @@ void switch_lcd() {
 	  LCD_RST_PIN = LCD1_RST_PIN;
   }
   else {
-
-
     LCD_CS_PORT = LCD2_CS_PORT;
 	LCD_CS_PIN = LCD2_CS_PIN;
 	LCD_DC_PORT = LCD2_DC_PORT;
@@ -350,8 +348,8 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  //MX_I2C2_Init();
-  //MX_SPI1_Init();
+  MX_I2C2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize the LCDs
@@ -676,10 +674,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin
@@ -695,19 +690,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin LCD2_DC_Pin */
-  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin;
+  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin */
+  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LCD2_CS_Pin LCD2_RST_Pin LCD1_RST_Pin */
-  GPIO_InitStruct.Pin = LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin
                            ROW4_Pin ROW5_Pin ROW6_Pin */
