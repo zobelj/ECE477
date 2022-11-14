@@ -65,9 +65,11 @@
 #define KEY_RBRACKET    0x30
 #define KEY_COLON       0x33
 #define KEY_QUOTE       0x34
+#define KEY_TILDE		0x35
 #define KEY_COMMA       0x36
 #define KEY_PERIOD      0x37
 #define KEY_FSLASH      0x38
+#define KEY_CAPSLOCK	0x39
 
 
 #define KEY_BACKSPACE 	0x2A

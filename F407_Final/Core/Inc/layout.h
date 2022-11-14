@@ -18,13 +18,13 @@
 int nRows1 = 7;
 int nCols1 = 6;
 
-const uint16_t layout1[nRows1_const][nCols1_const] = {{KEY_ESC, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5},
-													  {KEY_TAB, KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T},
-													  {0, KEY_A, KEY_S, KEY_D, KEY_F, KEY_G},
-													  {KEY_LSHIFT, KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B},
-													  {0, KEY_LGUI, 0, 0, 0, 0},
-													  {0, 0, 0, 0, 0, 0},
-													  {0, 0, 0, 0, 0, 0}
+const uint16_t layout1[nRows1_const][nCols1_const] = {{KEY_ESC, KEY_TAB, KEY_CAPSLOCK, KEY_LSHIFT, KEY_LCTRL, 0},
+													  {KEY_1, KEY_Q, KEY_A, KEY_Z, KEY_LGUI, 0},
+													  {KEY_2, KEY_W, KEY_S, KEY_X, 0, 0},
+													  {KEY_3, KEY_E, KEY_D, KEY_C, 0, 0},
+													  {KEY_4, KEY_R, KEY_F, KEY_V, 0, 0},
+													  {KEY_5, KEY_T, KEY_G, KEY_B, 0, 0},
+													  {KEY_TILDE, 0, KEY_LBRACKET, 0, 0, 0}
 };
 
 char keypresses1[nRows1_const][nCols1_const] = {{0, 0, 0, 0, 0, 0},

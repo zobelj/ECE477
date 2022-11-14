@@ -268,10 +268,46 @@ void record_keys() {
 
 void add_keypress(char key) {
 
-//	if(key == (char)KEY_LSHIFT) {
-//		keyboardhid.MODIFIER = 2;
-//		return;
-//	}
+	if(key == (char)KEY_LCTRL) {
+		keyboardhid.MODIFIER = (1<<0);
+		return;
+	}
+
+	if(key == (char)KEY_LSHIFT) {
+		keyboardhid.MODIFIER = (1<<1);
+		return;
+	}
+
+	if(key == (char)KEY_LALT) {
+		keyboardhid.MODIFIER = (1<<2);
+		return;
+	}
+
+	if(key == (char)KEY_LGUI) {
+		keyboardhid.MODIFIER = (1<<3);
+		return;
+	}
+
+	if(key == (char)KEY_RCTRL) {
+		keyboardhid.MODIFIER = (1<<4);
+		return;
+	}
+
+	if(key == (char)KEY_RSHIFT) {
+		keyboardhid.MODIFIER = (1<<5);
+		return;
+	}
+
+	if(key == (char)KEY_RALT) {
+		keyboardhid.MODIFIER = (1<<6);
+		return;
+	}
+
+	if(key == (char)KEY_RGUI) {
+		keyboardhid.MODIFIER = (1<<7);
+		return;
+	}
+
 
 	switch(keycodeNum) {
 			case 1:
@@ -687,6 +723,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin
                           |ROW4_Pin|ROW5_Pin|ROW6_Pin, GPIO_PIN_RESET);
 
@@ -706,6 +745,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD2_CS_Pin LCD2_RST_Pin LCD1_RST_Pin */
+  GPIO_InitStruct.Pin = LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin
                            ROW4_Pin ROW5_Pin ROW6_Pin */
