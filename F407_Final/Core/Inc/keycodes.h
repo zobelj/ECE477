@@ -8,27 +8,6 @@
 #ifndef INC_KEYCODES_H_
 #define INC_KEYCODES_H_
 
-#define KEY_1    		0x1E
-#define KEY_2     		0x1F
-#define KEY_3     		0x20
-#define KEY_4     		0x21
-#define KEY_5     		0x22
-#define KEY_6     		0x23
-#define KEY_7    		0x24
-#define KEY_8     		0x25
-#define KEY_9     		0x26
-#define KEY_0     		0x27
-
-#define KEY_LEFT  		0x50
-#define KEY_RIGHT 		0x4F
-#define KEY_UP    		0x52
-#define KEY_DOWN  		0x51
-
-#define KEY_VOLUP   	0x80
-#define KEY_VOLDOWN 	0x81
-#define KEY_MUTE    	0x7F
-#define KEY_PLAYPAUSE 	0x48
-
 #define KEY_A       	0x04
 #define KEY_B       	0x05
 #define KEY_C      		0x06
@@ -56,7 +35,20 @@
 #define KEY_Y			0x1C
 #define KEY_Z			0x1D
 
+#define KEY_1    		0x1E
+#define KEY_2     		0x1F
+#define KEY_3     		0x20
+#define KEY_4     		0x21
+#define KEY_5     		0x22
+#define KEY_6     		0x23
+#define KEY_7    		0x24
+#define KEY_8     		0x25
+#define KEY_9     		0x26
+#define KEY_0     		0x27
+
+#define KEY_ENTER		0x28
 #define KEY_ESC         0x29
+#define KEY_BACKSPACE 	0x2A
 #define KEY_TAB		    0x2B
 #define KEY_SPACE       0x2C
 #define KEY_MINUS       0x2D
@@ -71,8 +63,16 @@
 #define KEY_FSLASH      0x38
 #define KEY_CAPSLOCK	0x39
 
+#define KEY_LEFT  		0x50
+#define KEY_RIGHT 		0x4F
+#define KEY_UP    		0x52
+#define KEY_DOWN  		0x51
 
-#define KEY_BACKSPACE 	0x2A
+#define KEY_MUTE    	0x7F
+#define KEY_VOLUP   	0x80
+#define KEY_VOLDOWN 	0x81
+
+#define KEY_PLAYPAUSE 	0x48
 
 // modifiers. FF prefix to differentiate
 #define KEY_LCTRL   	0xFF00

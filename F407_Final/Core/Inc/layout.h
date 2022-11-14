@@ -18,9 +18,9 @@
 int nRows1 = 7;
 int nCols1 = 6;
 
-const uint16_t layout1[nRows1_const][nCols1_const] = {{KEY_ESC, KEY_TAB, KEY_CAPSLOCK, KEY_LSHIFT, KEY_LCTRL, 0},
-													  {KEY_1, KEY_Q, KEY_A, KEY_Z, KEY_LGUI, 0},
-													  {KEY_2, KEY_W, KEY_S, KEY_X, 0, 0},
+const uint16_t layout1[nRows1_const][nCols1_const] = {{KEY_ESC, KEY_TAB, KEY_CAPSLOCK, KEY_LSHIFT, KEY_LCTRL, KEY_SPACE},
+													  {KEY_1, KEY_Q, KEY_A, KEY_Z, KEY_LGUI, KEY_BACKSPACE},
+													  {KEY_2, KEY_W, KEY_S, KEY_X, 0, KEY_ENTER},
 													  {KEY_3, KEY_E, KEY_D, KEY_C, 0, 0},
 													  {KEY_4, KEY_R, KEY_F, KEY_V, 0, 0},
 													  {KEY_5, KEY_T, KEY_G, KEY_B, 0, 0},
@@ -57,6 +57,15 @@ char keypresses2[nRows2_const][nCols2_const] = {{0, 0, 0, 0, 0, 0},
 												{0, 0, 0, 0, 0, 0},
 												{0, 0, 0, 0, 0, 0}};
 
+/* END Secondary Half */
+
+
+/* Primary Rotary Encoder */
+const uint16_t rotary_keys[3] = {KEY_SPACE, KEY_LEFT, KEY_RIGHT};
+
+char rotary_keypresses[3] = {0, 0, 0};
+
+/* END Primary Rotary Encoder */
 
 
 #endif /* INC_LAYOUT_H_ */

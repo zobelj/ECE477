@@ -70,6 +70,12 @@ float wpm = 0;
 int keycodeNum = 1;
 int row = 0;
 
+// rotary direction
+int currentStateCLK = 0;
+int lastStateCLK = 0;
+int currentStateDT = 0;
+int rotLock = 0;
+
 // USBD struct
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
@@ -108,7 +114,7 @@ int get_cols();
 void scan_rotary();
 
 // usb functions
-void add_keypress(char key);
+void add_keypress(uint16_t key);
 void record_keys();
 
 // LCD functions
@@ -234,6 +240,52 @@ int get_cols() {
   return local_cols;// | expander_cols;
 }
 
+/* Rotary Encoder Scanning */
+void scan_rotary() {
+  currentStateCLK = HAL_GPIO_ReadPin(GPIOD, ENC_A_Pin);
+
+  // if CLK pin has changed, then the rotary encoder has turned
+  if (currentStateCLK != lastStateCLK && rotLock == 0 ) {// && rotLock == 0) {
+    // if the DT state is different, then the encoder is rotating counter-clockwise
+    currentStateDT = HAL_GPIO_ReadPin(GPIOD, ENC_B_Pin);
+
+    if (currentStateDT != currentStateCLK) {
+      // Volume Down
+      rotary_keypresses[1] = 1;
+    }
+
+    // otherwise, it is turning clockwise
+    else if (currentStateDT == currentStateCLK) {
+      // Volume Up
+      rotary_keypresses[2] = 1;
+    }
+    rotLock++;
+
+  }
+  else if (rotLock == 0) {
+	  rotary_keypresses[1] = 0;
+	  rotary_keypresses[2] = 0;
+  }
+
+  lastStateCLK = currentStateCLK;
+
+  // rotLock allows the rotary encoder's inputs to settle over a few extra clock cycles
+  if(rotLock != 0) {
+    rotLock = (rotLock + 1) % 150;
+  }
+
+  // if the state is low (default is high), turn toggle the LED
+  if (HAL_GPIO_ReadPin(GPIOD, ENC_SW_Pin) == 0) {
+    // Volume Mute Toggle
+	  rotary_keypresses[0] = 1;
+  }
+  else {
+	  rotary_keypresses[0] = 0;
+  }
+
+}
+/* END Rotary Encoder Scanning */
+
 /* USB Functions */
 void record_keys() {
   // reset keyboardhid to 0
@@ -259,79 +311,45 @@ void record_keys() {
 //  }
 
   // Add Rotary Encoder keypresses
-//  for(int i = 0; i < 4; i++) {
-//	  if(rotary_keypresses[i] == 1)
-//		  add_keypress(rotary_keys[i]);
-//  }
+  for(int i = 0; i < 4; i++) {
+	  if(rotary_keypresses[i] == 1)
+		  add_keypress(rotary_keys[i]);
+  }
 
 }
 
-void add_keypress(char key) {
+void add_keypress(uint16_t key) {
 
-	if(key == (char)KEY_LCTRL) {
-		keyboardhid.MODIFIER = (1<<0);
+	if( (key & 0xFF00) == 0xFF00) {
+		int shift = key & 0xFF;
+		keyboardhid.MODIFIER |= (1<<shift);
+
 		return;
 	}
-
-	if(key == (char)KEY_LSHIFT) {
-		keyboardhid.MODIFIER = (1<<1);
-		return;
-	}
-
-	if(key == (char)KEY_LALT) {
-		keyboardhid.MODIFIER = (1<<2);
-		return;
-	}
-
-	if(key == (char)KEY_LGUI) {
-		keyboardhid.MODIFIER = (1<<3);
-		return;
-	}
-
-	if(key == (char)KEY_RCTRL) {
-		keyboardhid.MODIFIER = (1<<4);
-		return;
-	}
-
-	if(key == (char)KEY_RSHIFT) {
-		keyboardhid.MODIFIER = (1<<5);
-		return;
-	}
-
-	if(key == (char)KEY_RALT) {
-		keyboardhid.MODIFIER = (1<<6);
-		return;
-	}
-
-	if(key == (char)KEY_RGUI) {
-		keyboardhid.MODIFIER = (1<<7);
-		return;
-	}
-
 
 	switch(keycodeNum) {
-			case 1:
-			  keyboardhid.KEYCODE1 = key;
-			  break;
-			case 2:
-			  keyboardhid.KEYCODE2 = key;
-			  break;
-			case 3:
-			  keyboardhid.KEYCODE3 = key;
-			  break;
-			case 4:
-			  keyboardhid.KEYCODE4 = key;
-			  break;
-			case 5:
-			  keyboardhid.KEYCODE5 = key;
-			  break;
-			case 6:
-			  keyboardhid.KEYCODE6 = key;
-			  break;
-			default:
-				break;
-		  }
-		  keycodeNum++;
+		case 1:
+		  keyboardhid.KEYCODE1 = key;
+		  break;
+		case 2:
+		  keyboardhid.KEYCODE2 = key;
+		  break;
+		case 3:
+		  keyboardhid.KEYCODE3 = key;
+		  break;
+		case 4:
+		  keyboardhid.KEYCODE4 = key;
+		  break;
+		case 5:
+		  keyboardhid.KEYCODE5 = key;
+		  break;
+		case 6:
+		  keyboardhid.KEYCODE6 = key;
+		  break;
+		default:
+			break;
+	}
+	keycodeNum++;
 
 }
 /* END USB Functions */
@@ -784,7 +802,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		scan_keypad();
 
 		/* Rotary Encoder */
-		//scan_rotary();
+		scan_rotary();
 	}
 
 	else if (htim == &htim7) {
