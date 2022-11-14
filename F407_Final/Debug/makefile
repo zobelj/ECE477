@@ -64,8 +64,8 @@ all: main-build
 main-build: F407_Final.elf secondary-outputs
 
 # Tool invocations
-F407_Final.elf F407_Final.map: $(OBJS) $(USER_OBJS) /Users/joe/Dropbox/ECE477/ECE477/F407_Final/STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "F407_Final.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/joe/Dropbox/ECE477/ECE477/F407_Final/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F407_Final.elf F407_Final.map: $(OBJS) $(USER_OBJS) /Users/logan/Documents/GitHub/ECE477/F407_Final/STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "F407_Final.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_Final/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

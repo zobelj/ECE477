@@ -1,4 +1,4 @@
-/* USER CODE BEGIN Header */
+ /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -205,8 +205,17 @@ void set_rows() {
   // TODO: change this logic to work with all 7 rows on Side B.
   // Code below works for the breadboard prototype
   // set current row to low and others to high on gpio expander keypad
-//  uint8_t data[2] = {0x0A, ~( 8 >> row )};
-//  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+
+
+
+  // ! GPIOB2 - GPIOB7 maps to row0 - row5, GPIOA7 maps to row6
+  if (row != 6){
+	  uint8_t data[3] = {0x14, ~( 0x04 << row ), ~0}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+  } else {
+	  uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+  }
 }
 
 int get_cols() {
@@ -215,9 +224,10 @@ int get_cols() {
   int local_cols = ~(GPIOD->IDR >> 7) & 0x3F;
 
   // read the GPIO expander columns
-  //uint8_t data[1] = {0x09};
-//  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
-//  HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+  // ! GPIOA0 - GPIOA5 maps to col0 - col5
+  uint8_t data[2] = {0x12, 0x00}; // addr 0x12 for IOCON.BANK = 0, 0x09 for IOCON.BANK = 1
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+  HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
 
   //int expander_cols = data[0] & 0xF0;
 
