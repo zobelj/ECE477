@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00025c25  00000000  00000000  000512c0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001cb04  00000000  00000000  00076ee5  2**0
+ 18 .debug_line   0001d042  00000000  00000000  00076ee5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d30f6  00000000  00000000  000939e9  2**0
+ 19 .debug_str    000d30e7  00000000  00000000  00093f27  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  00166adf  2**0
+ 20 .comment      00000050  00000000  00000000  0016700e  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00006db4  00000000  00000000  00166b30  2**2
+ 21 .debug_frame  00006db4  00000000  00000000  00167060  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -145,8 +145,8 @@ Disassembly of section .text:
  8000276:	bf08      	it	eq
  8000278:	2800      	cmpeq	r0, #0
  800027a:	bf1c      	itt	ne
- 800027c:	f04f 31ff 	movne.w	r1, #4294967295
- 8000280:	f04f 30ff 	movne.w	r0, #4294967295
+ 800027c:	f04f 31ff 	movne.w	r1, #4294967295	; 0xffffffff
+ 8000280:	f04f 30ff 	movne.w	r0, #4294967295	; 0xffffffff
  8000284:	f000 b974 	b.w	8000570 <__aeabi_idiv0>
  8000288:	f1ad 0c08 	sub.w	ip, sp, #8
  800028c:	e96d ce04 	strd	ip, lr, [sp, #-16]!
@@ -184,7 +184,7 @@ Disassembly of section .text:
  80002ea:	4299      	cmp	r1, r3
  80002ec:	d90a      	bls.n	8000304 <__udivmoddi4+0x64>
  80002ee:	eb1c 0303 	adds.w	r3, ip, r3
- 80002f2:	f106 30ff 	add.w	r0, r6, #4294967295
+ 80002f2:	f106 30ff 	add.w	r0, r6, #4294967295	; 0xffffffff
  80002f6:	f080 811f 	bcs.w	8000538 <__udivmoddi4+0x298>
  80002fa:	4299      	cmp	r1, r3
  80002fc:	f240 811c 	bls.w	8000538 <__udivmoddi4+0x298>
@@ -199,7 +199,7 @@ Disassembly of section .text:
  8000318:	42a7      	cmp	r7, r4
  800031a:	d90a      	bls.n	8000332 <__udivmoddi4+0x92>
  800031c:	eb1c 0404 	adds.w	r4, ip, r4
- 8000320:	f100 33ff 	add.w	r3, r0, #4294967295
+ 8000320:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
  8000324:	f080 810a 	bcs.w	800053c <__udivmoddi4+0x29c>
  8000328:	42a7      	cmp	r7, r4
  800032a:	f240 8107 	bls.w	800053c <__udivmoddi4+0x29c>
@@ -255,7 +255,7 @@ Disassembly of section .text:
  80003b6:	4288      	cmp	r0, r1
  80003b8:	d908      	bls.n	80003cc <__udivmoddi4+0x12c>
  80003ba:	eb1c 0101 	adds.w	r1, ip, r1
- 80003be:	f103 38ff 	add.w	r8, r3, #4294967295
+ 80003be:	f103 38ff 	add.w	r8, r3, #4294967295	; 0xffffffff
  80003c2:	d202      	bcs.n	80003ca <__udivmoddi4+0x12a>
  80003c4:	4288      	cmp	r0, r1
  80003c6:	f200 80cb 	bhi.w	8000560 <__udivmoddi4+0x2c0>
@@ -269,7 +269,7 @@ Disassembly of section .text:
  80003e0:	45a6      	cmp	lr, r4
  80003e2:	d908      	bls.n	80003f6 <__udivmoddi4+0x156>
  80003e4:	eb1c 0404 	adds.w	r4, ip, r4
- 80003e8:	f100 31ff 	add.w	r1, r0, #4294967295
+ 80003e8:	f100 31ff 	add.w	r1, r0, #4294967295	; 0xffffffff
  80003ec:	d202      	bcs.n	80003f4 <__udivmoddi4+0x154>
  80003ee:	45a6      	cmp	lr, r4
  80003f0:	f200 80bb 	bhi.w	800056a <__udivmoddi4+0x2ca>
@@ -297,7 +297,7 @@ Disassembly of section .text:
  800043a:	fa02 f206 	lsl.w	r2, r2, r6
  800043e:	d90b      	bls.n	8000458 <__udivmoddi4+0x1b8>
  8000440:	eb1c 0101 	adds.w	r1, ip, r1
- 8000444:	f108 3aff 	add.w	sl, r8, #4294967295
+ 8000444:	f108 3aff 	add.w	sl, r8, #4294967295	; 0xffffffff
  8000448:	f080 8088 	bcs.w	800055c <__udivmoddi4+0x2bc>
  800044c:	4288      	cmp	r0, r1
  800044e:	f240 8085 	bls.w	800055c <__udivmoddi4+0x2bc>
@@ -312,7 +312,7 @@ Disassembly of section .text:
  800046c:	458e      	cmp	lr, r1
  800046e:	d908      	bls.n	8000482 <__udivmoddi4+0x1e2>
  8000470:	eb1c 0101 	adds.w	r1, ip, r1
- 8000474:	f100 34ff 	add.w	r4, r0, #4294967295
+ 8000474:	f100 34ff 	add.w	r4, r0, #4294967295	; 0xffffffff
  8000478:	d26c      	bcs.n	8000554 <__udivmoddi4+0x2b4>
  800047a:	458e      	cmp	lr, r1
  800047c:	d96a      	bls.n	8000554 <__udivmoddi4+0x2b4>
@@ -354,7 +354,7 @@ Disassembly of section .text:
  80004e8:	fa04 f402 	lsl.w	r4, r4, r2
  80004ec:	d908      	bls.n	8000500 <__udivmoddi4+0x260>
  80004ee:	eb1c 0303 	adds.w	r3, ip, r3
- 80004f2:	f100 38ff 	add.w	r8, r0, #4294967295
+ 80004f2:	f100 38ff 	add.w	r8, r0, #4294967295	; 0xffffffff
  80004f6:	d22f      	bcs.n	8000558 <__udivmoddi4+0x2b8>
  80004f8:	429e      	cmp	r6, r3
  80004fa:	d92d      	bls.n	8000558 <__udivmoddi4+0x2b8>
@@ -369,7 +369,7 @@ Disassembly of section .text:
  8000514:	428b      	cmp	r3, r1
  8000516:	d908      	bls.n	800052a <__udivmoddi4+0x28a>
  8000518:	eb1c 0101 	adds.w	r1, ip, r1
- 800051c:	f106 38ff 	add.w	r8, r6, #4294967295
+ 800051c:	f106 38ff 	add.w	r8, r6, #4294967295	; 0xffffffff
  8000520:	d216      	bcs.n	8000550 <__udivmoddi4+0x2b0>
  8000522:	428b      	cmp	r3, r1
  8000524:	d914      	bls.n	8000550 <__udivmoddi4+0x2b0>
@@ -2679,25 +2679,25 @@ void switch_lcd() {
  800144c:	b480      	push	{r7}
  800144e:	af00      	add	r7, sp, #0
   // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
-  if(LCD_CS_PIN == LCD2_CS_PIN) {
+  if(LCD_DC_PIN == LCD2_DC_PIN) {
  8001450:	4b19      	ldr	r3, [pc, #100]	; (80014b8 <switch_lcd+0x6c>)
  8001452:	881b      	ldrh	r3, [r3, #0]
- 8001454:	f5b3 7f80 	cmp.w	r3, #256	; 0x100
+ 8001454:	f5b3 7f00 	cmp.w	r3, #512	; 0x200
  8001458:	d114      	bne.n	8001484 <switch_lcd+0x38>
 	  LCD_CS_PORT = LCD1_CS_PORT;
  800145a:	4b18      	ldr	r3, [pc, #96]	; (80014bc <switch_lcd+0x70>)
  800145c:	4a18      	ldr	r2, [pc, #96]	; (80014c0 <switch_lcd+0x74>)
  800145e:	601a      	str	r2, [r3, #0]
 	  LCD_CS_PIN = LCD1_CS_PIN;
- 8001460:	4b15      	ldr	r3, [pc, #84]	; (80014b8 <switch_lcd+0x6c>)
+ 8001460:	4b18      	ldr	r3, [pc, #96]	; (80014c4 <switch_lcd+0x78>)
  8001462:	f44f 7280 	mov.w	r2, #256	; 0x100
  8001466:	801a      	strh	r2, [r3, #0]
 	  LCD_DC_PORT = LCD1_DC_PORT;
- 8001468:	4b16      	ldr	r3, [pc, #88]	; (80014c4 <switch_lcd+0x78>)
+ 8001468:	4b17      	ldr	r3, [pc, #92]	; (80014c8 <switch_lcd+0x7c>)
  800146a:	4a15      	ldr	r2, [pc, #84]	; (80014c0 <switch_lcd+0x74>)
  800146c:	601a      	str	r2, [r3, #0]
 	  LCD_DC_PIN = LCD1_DC_PIN;
- 800146e:	4b16      	ldr	r3, [pc, #88]	; (80014c8 <switch_lcd+0x7c>)
+ 800146e:	4b12      	ldr	r3, [pc, #72]	; (80014b8 <switch_lcd+0x6c>)
  8001470:	2280      	movs	r2, #128	; 0x80
  8001472:	801a      	strh	r2, [r3, #0]
 	  LCD_RST_PORT = LCD1_RST_PORT;
@@ -2720,15 +2720,15 @@ void switch_lcd() {
  8001486:	4a12      	ldr	r2, [pc, #72]	; (80014d0 <switch_lcd+0x84>)
  8001488:	601a      	str	r2, [r3, #0]
 	LCD_CS_PIN = LCD2_CS_PIN;
- 800148a:	4b0b      	ldr	r3, [pc, #44]	; (80014b8 <switch_lcd+0x6c>)
+ 800148a:	4b0e      	ldr	r3, [pc, #56]	; (80014c4 <switch_lcd+0x78>)
  800148c:	f44f 7280 	mov.w	r2, #256	; 0x100
  8001490:	801a      	strh	r2, [r3, #0]
 	LCD_DC_PORT = LCD2_DC_PORT;
- 8001492:	4b0c      	ldr	r3, [pc, #48]	; (80014c4 <switch_lcd+0x78>)
+ 8001492:	4b0d      	ldr	r3, [pc, #52]	; (80014c8 <switch_lcd+0x7c>)
  8001494:	4a0a      	ldr	r2, [pc, #40]	; (80014c0 <switch_lcd+0x74>)
  8001496:	601a      	str	r2, [r3, #0]
 	LCD_DC_PIN = LCD2_DC_PIN;
- 8001498:	4b0b      	ldr	r3, [pc, #44]	; (80014c8 <switch_lcd+0x7c>)
+ 8001498:	4b07      	ldr	r3, [pc, #28]	; (80014b8 <switch_lcd+0x6c>)
  800149a:	f44f 7200 	mov.w	r2, #512	; 0x200
  800149e:	801a      	strh	r2, [r3, #0]
 	LCD_RST_PORT = LCD2_RST_PORT;
@@ -2744,11 +2744,11 @@ void switch_lcd() {
  80014b0:	46bd      	mov	sp, r7
  80014b2:	f85d 7b04 	ldr.w	r7, [sp], #4
  80014b6:	4770      	bx	lr
- 80014b8:	20000008 	.word	0x20000008
+ 80014b8:	20000010 	.word	0x20000010
  80014bc:	20000004 	.word	0x20000004
  80014c0:	40020800 	.word	0x40020800
- 80014c4:	2000000c 	.word	0x2000000c
- 80014c8:	20000010 	.word	0x20000010
+ 80014c4:	20000008 	.word	0x20000008
+ 80014c8:	2000000c 	.word	0x2000000c
  80014cc:	20000014 	.word	0x20000014
  80014d0:	40020000 	.word	0x40020000
  80014d4:	20000018 	.word	0x20000018
@@ -2892,10 +2892,10 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim6);
  80015c0:	4823      	ldr	r0, [pc, #140]	; (8001650 <main+0x178>)
  80015c2:	f006 fb5f 	bl	8007c84 <HAL_TIM_Base_Start_IT>
-  char buffer2[10];
 
   while (1)
   {
+
 	  //draw the counter to the lcd
 	  if (writeScreen) {
  80015c6:	4b23      	ldr	r3, [pc, #140]	; (8001654 <main+0x17c>)
@@ -4799,7 +4799,7 @@ int _close(int file)
  800202e:	af00      	add	r7, sp, #0
  8002030:	6078      	str	r0, [r7, #4]
 	return -1;
- 8002032:	f04f 33ff 	mov.w	r3, #4294967295
+ 8002032:	f04f 33ff 	mov.w	r3, #4294967295	; 0xffffffff
 }
  8002036:	4618      	mov	r0, r3
  8002038:	370c      	adds	r7, #12
@@ -4920,7 +4920,7 @@ void *_sbrk(ptrdiff_t incr)
  80020ca:	220c      	movs	r2, #12
  80020cc:	601a      	str	r2, [r3, #0]
     return (void *)-1;
- 80020ce:	f04f 33ff 	mov.w	r3, #4294967295
+ 80020ce:	f04f 33ff 	mov.w	r3, #4294967295	; 0xffffffff
  80020d2:	e009      	b.n	80020e8 <_sbrk+0x54>
   }
 
@@ -5180,7 +5180,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
  80021f0:	2200      	movs	r2, #0
  80021f2:	6879      	ldr	r1, [r7, #4]
- 80021f4:	f04f 30ff 	mov.w	r0, #4294967295
+ 80021f4:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  80021f8:	f000 f92f 	bl	800245a <HAL_NVIC_SetPriority>
     uwTickPrio = TickPriority;
  80021fc:	4a06      	ldr	r2, [pc, #24]	; (8002218 <HAL_InitTick+0x5c>)
@@ -5273,7 +5273,7 @@ __weak void HAL_Delay(uint32_t Delay)
   /* Add a freq to guarantee minimum wait */
   if (wait < HAL_MAX_DELAY)
  800226e:	68fb      	ldr	r3, [r7, #12]
- 8002270:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8002270:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8002274:	d005      	beq.n	8002282 <HAL_Delay+0x26>
   {
     wait += (uint32_t)(uwTickFreq);
@@ -5506,7 +5506,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
 
   return (
            ((PreemptPriority & (uint32_t)((1UL << (PreemptPriorityBits)) - 1UL)) << SubPriorityBits) |
- 80023cc:	f04f 32ff 	mov.w	r2, #4294967295
+ 80023cc:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
  80023d0:	69bb      	ldr	r3, [r7, #24]
  80023d2:	fa02 f303 	lsl.w	r3, r2, r3
  80023d6:	43da      	mvns	r2, r3
@@ -5515,7 +5515,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
  80023dc:	697b      	ldr	r3, [r7, #20]
  80023de:	409a      	lsls	r2, r3
            ((SubPriority     & (uint32_t)((1UL << (SubPriorityBits    )) - 1UL)))
- 80023e0:	f04f 31ff 	mov.w	r1, #4294967295
+ 80023e0:	f04f 31ff 	mov.w	r1, #4294967295	; 0xffffffff
  80023e4:	697b      	ldr	r3, [r7, #20]
  80023e6:	fa01 f303 	lsl.w	r3, r1, r3
  80023ea:	43d9      	mvns	r1, r3
@@ -5561,7 +5561,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
  800241c:	6053      	str	r3, [r2, #4]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
  800241e:	210f      	movs	r1, #15
- 8002420:	f04f 30ff 	mov.w	r0, #4294967295
+ 8002420:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  8002424:	f7ff ff8e 	bl	8002344 <__NVIC_SetPriority>
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
  8002428:	4b05      	ldr	r3, [pc, #20]	; (8002440 <SysTick_Config+0x40>)
@@ -13634,7 +13634,7 @@ static HAL_StatusTypeDef I2C_WaitOnFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uin
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  8005216:	683b      	ldr	r3, [r7, #0]
- 8005218:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8005218:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  800521c:	d021      	beq.n	8005262 <I2C_WaitOnFlagUntilTimeout+0x5e>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -13799,7 +13799,7 @@ static HAL_StatusTypeDef I2C_WaitOnMasterAddressFlagUntilTimeout(I2C_HandleTypeD
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  800531a:	687b      	ldr	r3, [r7, #4]
- 800531c:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 800531c:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8005320:	d021      	beq.n	8005366 <I2C_WaitOnMasterAddressFlagUntilTimeout+0xb4>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -13918,7 +13918,7 @@ static HAL_StatusTypeDef I2C_WaitOnTXEFlagUntilTimeout(I2C_HandleTypeDef *hi2c, 
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  80053ce:	68bb      	ldr	r3, [r7, #8]
- 80053d0:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80053d0:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  80053d4:	d021      	beq.n	800541a <I2C_WaitOnTXEFlagUntilTimeout+0x6a>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -14011,7 +14011,7 @@ static HAL_StatusTypeDef I2C_WaitOnBTFFlagUntilTimeout(I2C_HandleTypeDef *hi2c, 
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  8005450:	68bb      	ldr	r3, [r7, #8]
- 8005452:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8005452:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8005456:	d021      	beq.n	800549c <I2C_WaitOnBTFFlagUntilTimeout+0x6a>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -19769,7 +19769,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
  800769a:	429a      	cmp	r2, r3
  800769c:	d803      	bhi.n	80076a6 <HAL_SPI_Transmit+0x168>
  800769e:	683b      	ldr	r3, [r7, #0]
- 80076a0:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80076a0:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  80076a4:	d102      	bne.n	80076ac <HAL_SPI_Transmit+0x16e>
  80076a6:	683b      	ldr	r3, [r7, #0]
  80076a8:	2b00      	cmp	r3, #0
@@ -19872,7 +19872,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
  8007736:	429a      	cmp	r2, r3
  8007738:	d803      	bhi.n	8007742 <HAL_SPI_Transmit+0x204>
  800773a:	683b      	ldr	r3, [r7, #0]
- 800773c:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 800773c:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8007740:	d102      	bne.n	8007748 <HAL_SPI_Transmit+0x20a>
  8007742:	683b      	ldr	r3, [r7, #0]
  8007744:	2b00      	cmp	r3, #0
@@ -20523,7 +20523,7 @@ static HAL_StatusTypeDef SPI_WaitFlagStateUntilTimeout(SPI_HandleTypeDef *hspi, 
   {
     if (Timeout != HAL_MAX_DELAY)
  8007a88:	683b      	ldr	r3, [r7, #0]
- 8007a8a:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8007a8a:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8007a8e:	d050      	beq.n	8007b32 <SPI_WaitFlagStateUntilTimeout+0xe2>
     {
       if (((HAL_GetTick() - tmp_tickstart) >= tmp_timeout) || (tmp_timeout == 0U))
@@ -33177,7 +33177,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c404:	f000 fd0e 	bl	800ce24 <_sbrk_r>
  800c408:	3001      	adds	r0, #1
  800c40a:	d101      	bne.n	800c410 <sbrk_aligned+0x38>
- 800c40c:	f04f 34ff 	mov.w	r4, #4294967295
+ 800c40c:	f04f 34ff 	mov.w	r4, #4294967295	; 0xffffffff
  800c410:	4620      	mov	r0, r4
  800c412:	bd70      	pop	{r4, r5, r6, pc}
  800c414:	20000e1c 	.word	0x20000e1c
@@ -33321,7 +33321,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c54c:	89a3      	ldrh	r3, [r4, #12]
  800c54e:	f043 0340 	orr.w	r3, r3, #64	; 0x40
  800c552:	81a3      	strh	r3, [r4, #12]
- 800c554:	f04f 30ff 	mov.w	r0, #4294967295
+ 800c554:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800c558:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  800c55c:	6921      	ldr	r1, [r4, #16]
  800c55e:	464a      	mov	r2, r9
@@ -33382,7 +33382,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c5da:	b920      	cbnz	r0, 800c5e6 <_svfiprintf_r+0x2e>
  800c5dc:	230c      	movs	r3, #12
  800c5de:	603b      	str	r3, [r7, #0]
- 800c5e0:	f04f 30ff 	mov.w	r0, #4294967295
+ 800c5e0:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800c5e4:	e0d1      	b.n	800c78a <_svfiprintf_r+0x1d2>
  800c5e6:	2340      	movs	r3, #64	; 0x40
  800c5e8:	616b      	str	r3, [r5, #20]
@@ -33417,7 +33417,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c636:	2b00      	cmp	r3, #0
  800c638:	f000 80a2 	beq.w	800c780 <_svfiprintf_r+0x1c8>
  800c63c:	2300      	movs	r3, #0
- 800c63e:	f04f 32ff 	mov.w	r2, #4294967295
+ 800c63e:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
  800c642:	e9cd 2305 	strd	r2, r3, [sp, #20]
  800c646:	f10a 0a01 	add.w	sl, sl, #1
  800c64a:	9304      	str	r3, [sp, #16]
@@ -33484,7 +33484,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c6da:	9203      	str	r2, [sp, #12]
  800c6dc:	2b00      	cmp	r3, #0
  800c6de:	bfb8      	it	lt
- 800c6e0:	f04f 33ff 	movlt.w	r3, #4294967295
+ 800c6e0:	f04f 33ff 	movlt.w	r3, #4294967295	; 0xffffffff
  800c6e4:	3402      	adds	r4, #2
  800c6e6:	9305      	str	r3, [sp, #20]
  800c6e8:	f8df a0c8 	ldr.w	sl, [pc, #200]	; 800c7b4 <_svfiprintf_r+0x1fc>
@@ -33647,7 +33647,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c852:	6e6b      	ldr	r3, [r5, #100]	; 0x64
  800c854:	07dc      	lsls	r4, r3, #31
  800c856:	d50e      	bpl.n	800c876 <_vfiprintf_r+0x6a>
- 800c858:	f04f 30ff 	mov.w	r0, #4294967295
+ 800c858:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800c85c:	b01d      	add	sp, #116	; 0x74
  800c85e:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
  800c862:	4b7b      	ldr	r3, [pc, #492]	; (800ca50 <_vfiprintf_r+0x244>)
@@ -33697,7 +33697,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c8d0:	2b00      	cmp	r3, #0
  800c8d2:	f000 80a2 	beq.w	800ca1a <_vfiprintf_r+0x20e>
  800c8d6:	2300      	movs	r3, #0
- 800c8d8:	f04f 32ff 	mov.w	r2, #4294967295
+ 800c8d8:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
  800c8dc:	e9cd 2305 	strd	r2, r3, [sp, #20]
  800c8e0:	f10a 0a01 	add.w	sl, sl, #1
  800c8e4:	9304      	str	r3, [sp, #16]
@@ -33764,7 +33764,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800c974:	9203      	str	r2, [sp, #12]
  800c976:	2b00      	cmp	r3, #0
  800c978:	bfb8      	it	lt
- 800c97a:	f04f 33ff 	movlt.w	r3, #4294967295
+ 800c97a:	f04f 33ff 	movlt.w	r3, #4294967295	; 0xffffffff
  800c97e:	3402      	adds	r4, #2
  800c980:	9305      	str	r3, [sp, #20]
  800c982:	f8df a0e4 	ldr.w	sl, [pc, #228]	; 800ca68 <_vfiprintf_r+0x25c>
@@ -33935,7 +33935,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800cb0a:	47c0      	blx	r8
  800cb0c:	3001      	adds	r0, #1
  800cb0e:	d103      	bne.n	800cb18 <_printf_common+0xac>
- 800cb10:	f04f 30ff 	mov.w	r0, #4294967295
+ 800cb10:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800cb14:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  800cb18:	3501      	adds	r5, #1
  800cb1a:	e7c6      	b.n	800caaa <_printf_common+0x3e>
@@ -34083,7 +34083,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800cc88:	bfde      	ittt	le
  800cc8a:	2330      	movle	r3, #48	; 0x30
  800cc8c:	f805 3c01 	strble.w	r3, [r5, #-1]
- 800cc90:	f105 35ff 	addle.w	r5, r5, #4294967295
+ 800cc90:	f105 35ff 	addle.w	r5, r5, #4294967295	; 0xffffffff
  800cc94:	1b52      	subs	r2, r2, r5
  800cc96:	6122      	str	r2, [r4, #16]
  800cc98:	f8cd a000 	str.w	sl, [sp]
@@ -34094,7 +34094,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800cca4:	f7ff fee2 	bl	800ca6c <_printf_common>
  800cca8:	3001      	adds	r0, #1
  800ccaa:	d14c      	bne.n	800cd46 <_printf_i+0x1fe>
- 800ccac:	f04f 30ff 	mov.w	r0, #4294967295
+ 800ccac:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800ccb0:	b004      	add	sp, #16
  800ccb2:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  800ccb6:	4835      	ldr	r0, [pc, #212]	; (800cd8c <_printf_i+0x244>)
@@ -34410,7 +34410,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800cf54:	f000 f81e 	bl	800cf94 <__swsetup_r>
  800cf58:	2800      	cmp	r0, #0
  800cf5a:	d0cb      	beq.n	800cef4 <__swbuf_r+0x28>
- 800cf5c:	f04f 37ff 	mov.w	r7, #4294967295
+ 800cf5c:	f04f 37ff 	mov.w	r7, #4294967295	; 0xffffffff
  800cf60:	e7ea      	b.n	800cf38 <__swbuf_r+0x6c>
  800cf62:	bf00      	nop
  800cf64:	08017b3c 	.word	0x08017b3c
@@ -34460,7 +34460,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800cfc2:	6033      	str	r3, [r6, #0]
  800cfc4:	f042 0340 	orr.w	r3, r2, #64	; 0x40
  800cfc8:	81a3      	strh	r3, [r4, #12]
- 800cfca:	f04f 30ff 	mov.w	r0, #4294967295
+ 800cfca:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800cfce:	e03e      	b.n	800d04e <__swsetup_r+0xba>
  800cfd0:	4b25      	ldr	r3, [pc, #148]	; (800d068 <__swsetup_r+0xd4>)
  800cfd2:	429c      	cmp	r4, r3
@@ -34661,7 +34661,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  800d180:	89a3      	ldrh	r3, [r4, #12]
  800d182:	f043 0340 	orr.w	r3, r3, #64	; 0x40
  800d186:	81a3      	strh	r3, [r4, #12]
- 800d188:	f04f 30ff 	mov.w	r0, #4294967295
+ 800d188:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  800d18c:	e78e      	b.n	800d0ac <__sflush_r+0x1c>
  800d18e:	4407      	add	r7, r0
  800d190:	eba8 0800 	sub.w	r8, r8, r0
@@ -34832,7 +34832,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
 0800d304 <memcpy>:
  800d304:	440a      	add	r2, r1
  800d306:	4291      	cmp	r1, r2
- 800d308:	f100 33ff 	add.w	r3, r0, #4294967295
+ 800d308:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
  800d30c:	d100      	bne.n	800d310 <memcpy+0xc>
  800d30e:	4770      	bx	lr
  800d310:	b510      	push	{r4, lr}

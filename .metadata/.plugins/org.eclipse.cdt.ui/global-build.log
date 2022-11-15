@@ -1,9 +1,86 @@
-09:30:09 **** Incremental Build of configuration Debug for project F407_Final ****
+14:08:57 **** Incremental Build of configuration Debug for project F407_Final ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'set_rows':
-../Core/Src/main.c:216:33: warning: unsigned conversion from 'int' to 'unsigned char' changes value from '-129' to '127' [-Woverflow]
-  216 |    uint8_t data[3] = {0x14, ~0, ~(0x0080)}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+../Core/Src/main.c:223:33: warning: unsigned conversion from 'int' to 'unsigned char' changes value from '-129' to '127' [-Woverflow]
+  223 |    uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+      |                                 ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:452:8: warning: unused variable 'buffer2' [-Wunused-variable]
+  452 |   char buffer2[10];
+      |        ^~~~~~~
+../Core/Src/main.c:451:8: warning: unused variable 'buffer1' [-Wunused-variable]
+  451 |   char buffer1[10];
+      |        ^~~~~~~
+../Core/Src/main.c:422:8: warning: unused variable 'writeBuff' [-Wunused-variable]
+  422 |   char writeBuff[20];
+      |        ^~~~~~~~~
+arm-none-eabi-gcc -o "F407_Final.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_Final/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_Final.elf
+ 
+arm-none-eabi-size   F407_Final.elf 
+arm-none-eabi-objdump -h -S  F407_Final.elf  > "F407_Final.list"
+   text	   data	    bss	    dec	    hex	filename
+  52888	    436	   8316	  61640	   f0c8	F407_Final.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_Final.list
+ 
+14:10:05 **** Incremental Build of configuration Debug for project F407_Final ****
+make -j7 all 
+arm-none-eabi-size   F407_Final.elf 
+   text	   data	    bss	    dec	    hex	filename
+  52888	    436	   8316	  61640	   f0c8	F407_Final.elf
+Finished building: default.size.stdout
+ 
+14:12:39 **** Incremental Build of configuration Debug for project F407_Final ****
+make -j7 all 
+arm-none-eabi-size   F407_Final.elf 
+   text	   data	    bss	    dec	    hex	filename
+  52888	    436	   8316	  61640	   f0c8	F407_Final.elf
+Finished building: default.size.stdout
+ 
+14:16:22 **** Incremental Build of configuration Debug for project F407_Final ****
+make -j7 all 
+arm-none-eabi-size   F407_Final.elf 
+   text	   data	    bss	    dec	    hex	filename
+  52888	    436	   8316	  61640	   f0c8	F407_Final.elf
+Finished building: default.size.stdout
+ 
+14:21:37 **** Incremental Build of configuration Debug for project F407_Final ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:223:33: warning: unsigned conversion from 'int' to 'unsigned char' changes value from '-129' to '127' [-Woverflow]
+  223 |    uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+      |                                 ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:452:8: warning: unused variable 'buffer2' [-Wunused-variable]
+  452 |   char buffer2[10];
+      |        ^~~~~~~
+../Core/Src/main.c:451:8: warning: unused variable 'buffer1' [-Wunused-variable]
+  451 |   char buffer1[10];
+      |        ^~~~~~~
+../Core/Src/main.c:422:8: warning: unused variable 'writeBuff' [-Wunused-variable]
+  422 |   char writeBuff[20];
+      |        ^~~~~~~~~
+arm-none-eabi-gcc -o "F407_Final.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_Final/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: F407_Final.elf
+ 
+arm-none-eabi-size   F407_Final.elf 
+arm-none-eabi-objdump -h -S  F407_Final.elf  > "F407_Final.list"
+   text	   data	    bss	    dec	    hex	filename
+  52888	    436	   8316	  61640	   f0c8	F407_Final.elf
+Finished building: default.size.stdout
+ 
+Finished building: F407_Final.list
+ 
+14:24:50 **** Incremental Build of configuration Debug for project F407_Final ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'set_rows':
+../Core/Src/main.c:223:33: warning: unsigned conversion from 'int' to 'unsigned char' changes value from '-129' to '127' [-Woverflow]
+  223 |    uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
       |                                 ^
 arm-none-eabi-gcc -o "F407_Final.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/logan/Documents/GitHub/ECE477/F407_Final/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F407_Final.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: F407_Final.elf
@@ -11,7 +88,7 @@ Finished building target: F407_Final.elf
 arm-none-eabi-size   F407_Final.elf 
 arm-none-eabi-objdump -h -S  F407_Final.elf  > "F407_Final.list"
    text	   data	    bss	    dec	    hex	filename
-  48128	    392	   8272	  56792	   ddd8	F407_Final.elf
+  97200	    436	   8316	 105952	  19de0	F407_Final.elf
 Finished building: default.size.stdout
  
 Finished building: F407_Final.list

@@ -358,7 +358,7 @@ void add_keypress(uint16_t key) {
 /* LCD Functions */
 void switch_lcd() {
   // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
-  if(LCD_CS_PIN == LCD2_CS_PIN) {
+  if(LCD_DC_PIN == LCD2_DC_PIN) {
 	  LCD_CS_PORT = LCD1_CS_PORT;
 	  LCD_CS_PIN = LCD1_CS_PIN;
 	  LCD_DC_PORT = LCD1_DC_PORT;
@@ -453,6 +453,7 @@ int main(void)
 
   while (1)
   {
+
 	  //draw the counter to the lcd
 	  if (writeScreen) {
 		  sprintf(buffer1, "%-3d", (int)wpm);
