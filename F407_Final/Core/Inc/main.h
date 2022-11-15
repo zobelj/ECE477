@@ -77,6 +77,8 @@ void Error_Handler(void);
 #define LCD1_DC_GPIO_Port GPIOC
 #define LCD1_CS_Pin GPIO_PIN_8
 #define LCD1_CS_GPIO_Port GPIOC
+#define LCD2_DC_Pin GPIO_PIN_9
+#define LCD2_DC_GPIO_Port GPIOC
 #define LCD2_CS_Pin GPIO_PIN_8
 #define LCD2_CS_GPIO_Port GPIOA
 #define LCD2_RST_Pin GPIO_PIN_9

@@ -211,12 +211,6 @@ void set_rows() {
 	  break;
   }
 
-  // TODO: change this logic to work with all 7 rows on Side B.
-  // Code below works for the breadboard prototype
-  // set current row to low and others to high on gpio expander keypad
-
-
-
   // ! GPIOB2 - GPIOB7 maps to row0 - row5, GPIOA7 maps to row6
   if (row != 6){
 	  uint8_t data[3] = {0x14, ~( 0x04 << row ), ~0}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
@@ -400,16 +394,16 @@ void add_keypress(uint16_t key) {
 /* LCD Functions */
 void switch_lcd() {
   // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
-  if(LCD_CS_PIN == LCD2_CS_PIN) {
-	  LCD_CS_PORT = LCD1_CS_PORT;
-	  LCD_CS_PIN = LCD1_CS_PIN;
-	  LCD_DC_PORT = LCD1_DC_PORT;
-	  LCD_DC_PIN = LCD1_DC_PIN;
-	  LCD_RST_PORT = LCD1_RST_PORT;
-	  LCD_RST_PIN = LCD1_RST_PIN;
+  if(LCD_DC_PIN == LCD2_DC_PIN) {
+	LCD_CS_PORT = LCD1_CS_PORT;
+	LCD_CS_PIN = LCD1_CS_PIN;
+	LCD_DC_PORT = LCD1_DC_PORT;
+	LCD_DC_PIN = LCD1_DC_PIN;
+	LCD_RST_PORT = LCD1_RST_PORT;
+	LCD_RST_PIN = LCD1_RST_PIN;
   }
   else {
-    LCD_CS_PORT = LCD2_CS_PORT;
+	LCD_CS_PORT = LCD2_CS_PORT;
 	LCD_CS_PIN = LCD2_CS_PIN;
 	LCD_DC_PORT = LCD2_DC_PORT;
 	LCD_DC_PIN = LCD2_DC_PIN;
@@ -460,22 +454,25 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Initialize the LCDs
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  switch_lcd();
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  char writeBuff[20];
-//  sprintf(writeBuff, "Words per minute: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
-//  sprintf(writeBuff, "Number of turns: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
+  // Left Screen
+  char writeBuff[20];
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Number of turns: ");
+  ILI9341_DrawText(writeBuff, FONT6, 25, 110, BLACK, WHITE);
+
+  // Right Screen
+  switch_lcd();
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Words");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
+  sprintf(writeBuff, "Per");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
+  sprintf(writeBuff, "Minute:");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
@@ -486,22 +483,25 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  //char buffer1[10];
-  //char buffer2[10];
+  char buffer1[10];
+  char buffer2[10];
 
   while (1)
   {
-	// draw the counter to the lcd
-//	sprintf(buffer1, "%3d", (int)wpm);
-//	ILI9341_DrawText(buffer1, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
-//
-//	// draw the counter to the lcd
-//	sprintf(buffer2, "%d", turn_counter);
-//	ILI9341_DrawText(buffer2, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
+	  //draw the counter to the lcd
+	  if (writeScreen) {
+		  sprintf(buffer1, "%-3d", (int)wpm);
+	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
+	  	  writeScreen = 0;
+	  }
+
+	  switch_lcd();
+
+	  // draw the counter to the lcd
+	  sprintf(buffer2, "%d", 2);
+	  ILI9341_DrawText(buffer2, FONT6, 190, 110, BLACK, WHITE);
+
+	  switch_lcd();
 
     /* USER CODE END WHILE */
 
