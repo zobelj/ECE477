@@ -56,16 +56,20 @@ char keypresses2[nRows2_const][nCols2_const] = {{0, 0, 0, 0, 0, 0},
 												{0, 0, 0, 0, 0, 0},
 												{0, 0, 0, 0, 0, 0},
 												{0, 0, 0, 0, 0, 0}};
-
 /* END Secondary Half */
 
 
 /* Primary Rotary Encoder */
-const uint16_t rotary_keys[3] = {KEY_SPACE, KEY_LEFT, KEY_RIGHT};
+const uint16_t rotary_keys1[3] = {KEY_SPACE, KEY_LEFT, KEY_RIGHT};
 
-char rotary_keypresses[3] = {0, 0, 0};
-
+char rotary_keypresses1[3] = {0, 0, 0};
 /* END Primary Rotary Encoder */
 
+
+/* Secondary Rotary Encoder */
+const uint16_t rotary_keys1[3] = {KEY_SPACE, KEY_LEFT, KEY_RIGHT};
+
+char rotary_keypresses1[3] = {0, 0, 0};
+/* END Secondary Rotary Encoder */
 
 #endif /* INC_LAYOUT_H_ */
