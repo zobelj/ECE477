@@ -3,26 +3,28 @@
 
 #include "stm32f4xx_hal.h"
 
-extern SPI_HandleTypeDef hspi1;
+extern SPI_HandleTypeDef hspi2;
 
 #define ILI9341_SCREEN_HEIGHT 	240
 #define ILI9341_SCREEN_WIDTH 	320
 
 /* PIN Configuration */
-#define HSPI_INSTANCE			&hspi1
+#define HSPI_INSTANCE			&hspi2
 
-#define LCD1_CS_PORT			GPIOE
-#define LCD1_CS_PIN				GPIO_PIN_12
-#define LCD1_DC_PORT			GPIOE
-#define LCD1_DC_PIN				GPIO_PIN_13
-#define	LCD1_RST_PORT			GPIOE
+
+#define LCD1_CS_PORT			GPIOC
+#define LCD1_CS_PIN				GPIO_PIN_8
+#define LCD1_DC_PORT			GPIOC
+#define LCD1_DC_PIN				GPIO_PIN_7
+#define	LCD1_RST_PORT			GPIOA
 #define	LCD1_RST_PIN			GPIO_PIN_10
-#define LCD2_CS_PORT			GPIOE
-#define LCD2_CS_PIN				GPIO_PIN_14
-#define LCD2_DC_PORT			GPIOE
-#define LCD2_DC_PIN				GPIO_PIN_15
-#define	LCD2_RST_PORT			GPIOE
-#define	LCD2_RST_PIN			GPIO_PIN_11
+#define LCD2_CS_PORT			GPIOA
+#define LCD2_CS_PIN				GPIO_PIN_8
+#define LCD2_DC_PORT			GPIOC
+#define LCD2_DC_PIN				GPIO_PIN_9
+#define	LCD2_RST_PORT			GPIOA
+#define	LCD2_RST_PIN			GPIO_PIN_9
+
 
 extern GPIO_TypeDef* LCD_CS_PORT;
 extern uint16_t LCD_CS_PIN;

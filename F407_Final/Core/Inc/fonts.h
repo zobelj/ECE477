@@ -7,10 +7,14 @@
 #define FONT2	Arial_Narrow10x13
 #define FONT3	Arial_Narrow12x16
 #define FONT4	Arial_Narrow15x19
+#define FONT5 	Arial_Narrow38x48
+#define FONT6	Neu42x35
 
 extern const uint8_t Arial_Narrow8x12[];
 extern const uint8_t Arial_Narrow10x13[];
 extern const uint8_t Arial_Narrow12x16[];
 extern const uint8_t Arial_Narrow15x19[];
+extern const uint8_t Neu42x35[];
+extern const uint8_t Arial_Narrow38x48[];
 
 #endif // __FONTS_H__

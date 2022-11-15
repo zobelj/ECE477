@@ -1,4 +1,4 @@
- /* USER CODE BEGIN Header */
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -50,8 +50,8 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c2;
 
-SPI_HandleTypeDef hspi1;
-DMA_HandleTypeDef hdma_spi1_tx;
+SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
@@ -65,6 +65,7 @@ unsigned int charsInCycle = 0;
 unsigned int numCycles = 0;
 unsigned int dryCycles = 0;
 float wpm = 0;
+int writeScreen = 1;
 
 // row-column scanning
 int keycodeNum = 1;
@@ -103,7 +104,7 @@ static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
 static void MX_I2C2_Init(void);
-static void MX_SPI1_Init(void);
+static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
 // local keypad scanning
 void scan_keypad();
@@ -139,11 +140,11 @@ void scan_keypad() {
     	if (keypresses1[row][i] != 1) {
     		keypresses1[row][i] = 1;
     	    // WPM timer not enabled
-//    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
-//    	    	HAL_TIM_Base_Start_IT(&htim7);
-//    	    }
-//    	    charCount++;
-//    	    charsInCycle++;
+    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+    	    	HAL_TIM_Base_Start_IT(&htim7);
+    	    }
+    	    charCount++;
+    	    charsInCycle++;
     	}
     }
     else {
@@ -413,26 +414,30 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM7_Init();
   MX_I2C2_Init();
-  MX_SPI1_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize the LCDs
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  switch_lcd();
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  char writeBuff[20];
-//  sprintf(writeBuff, "Words per minute: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
-//  sprintf(writeBuff, "Number of turns: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
+  // Left Screen
+  char writeBuff[20];
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Number of turns: ");
+  ILI9341_DrawText(writeBuff, FONT6, 25, 110, BLACK, WHITE);
+
+  // Right Screen
+  switch_lcd();
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Words");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
+  sprintf(writeBuff, "Per");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
+  sprintf(writeBuff, "Minute:");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
+
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
@@ -443,22 +448,25 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  //char buffer1[10];
-  //char buffer2[10];
+  char buffer1[10];
+  char buffer2[10];
 
   while (1)
   {
-	// draw the counter to the lcd
-//	sprintf(buffer1, "%3d", (int)wpm);
-//	ILI9341_DrawText(buffer1, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
-//
-//	// draw the counter to the lcd
-//	sprintf(buffer2, "%d", turn_counter);
-//	ILI9341_DrawText(buffer2, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
+	  //draw the counter to the lcd
+	  if (writeScreen) {
+		  sprintf(buffer1, "%-3d", (int)wpm);
+	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
+	  	  writeScreen = 0;
+	  }
+
+	  switch_lcd();
+
+	  // draw the counter to the lcd
+	  sprintf(buffer2, "%d", 2);
+	  ILI9341_DrawText(buffer2, FONT6, 190, 110, BLACK, WHITE);
+
+	  switch_lcd();
 
     /* USER CODE END WHILE */
 
@@ -547,40 +555,40 @@ static void MX_I2C2_Init(void)
 }
 
 /**
-  * @brief SPI1 Initialization Function
+  * @brief SPI2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_SPI1_Init(void)
+static void MX_SPI2_Init(void)
 {
 
-  /* USER CODE BEGIN SPI1_Init 0 */
+  /* USER CODE BEGIN SPI2_Init 0 */
 
-  /* USER CODE END SPI1_Init 0 */
+  /* USER CODE END SPI2_Init 0 */
 
-  /* USER CODE BEGIN SPI1_Init 1 */
+  /* USER CODE BEGIN SPI2_Init 1 */
 
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN SPI1_Init 2 */
+  /* USER CODE BEGIN SPI2_Init 2 */
 
-  /* USER CODE END SPI1_Init 2 */
+  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -712,12 +720,12 @@ static void MX_DMA_Init(void)
 {
 
   /* DMA controller clock enable */
-  __HAL_RCC_DMA2_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA2_Stream3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
 
 }
 
@@ -732,13 +740,13 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin, GPIO_PIN_RESET);
@@ -757,8 +765,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin */
-  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin;
+  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin LCD2_DC_Pin */
+  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -806,23 +814,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	}
 
 	else if (htim == &htim7) {
-//		// words per minute
-//		// check to see if any keys pressed
-//		if (charsInCycle == 0) {
-//			dryCycles++;
-//			// shut down if 5 cycles with no presses
-//			if (dryCycles == 5) {
-//				charCount = 0;
-//				charsInCycle = 0;
-//				dryCycles = 0;
-//				numCycles = 0;
-//				HAL_TIM_Base_Stop_IT(&htim7);
-//			}
-//		}
-//		// calculate wpm
-//		numCycles++;
-//		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
-//		charsInCycle = 0;
+
+		// words per minute
+		// check to see if any keys pressed
+		if (charsInCycle == 0) {
+			dryCycles++;
+			// shut down if 5 cycles with no presses
+			if (dryCycles == 5) {
+				charCount = 0;
+				charsInCycle = 0;
+				dryCycles = 0;
+				numCycles = 0;
+				HAL_TIM_Base_Stop_IT(&htim7);
+			}
+		}
+		// calculate wpm
+		numCycles++;
+		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
+		charsInCycle = 0;
+		writeScreen = 1;
+
 
 	}
 }
