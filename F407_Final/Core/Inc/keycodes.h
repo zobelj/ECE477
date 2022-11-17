@@ -63,10 +63,13 @@
 #define KEY_FSLASH      0x38
 #define KEY_CAPSLOCK	0x39
 
-#define KEY_LEFT  		0x50
+#define KEY_DELETE      0x4C
+
 #define KEY_RIGHT 		0x4F
-#define KEY_UP    		0x52
+#define KEY_LEFT  		0x50
 #define KEY_DOWN  		0x51
+#define KEY_UP    		0x52
+
 
 #define KEY_MUTE    	0x7F
 #define KEY_VOLUP   	0x80

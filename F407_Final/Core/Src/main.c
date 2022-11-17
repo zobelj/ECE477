@@ -51,6 +51,7 @@
 I2C_HandleTypeDef hi2c2;
 
 SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
@@ -103,6 +104,7 @@ keyboardHID keyboardhid = {0,0,0,0,0,0,0,0};
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
@@ -141,11 +143,11 @@ void scan_keypad() {
     	if (keypresses1[row][i] != 1) {
     		keypresses1[row][i] = 1;
     	    // WPM timer not enabled
-//    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
-//    	    	HAL_TIM_Base_Start_IT(&htim7);
-//    	    }
-//    	    charCount++;
-//    	    charsInCycle++;
+    	    if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+    	    	HAL_TIM_Base_Start_IT(&htim7);
+    	    }
+    	    charCount++;
+    	    charsInCycle++;
     	}
     }
     else {
@@ -231,9 +233,9 @@ void get_cols() {
   HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
   HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
 
-  expander_cols = data[0] & 0xC0;
+  expander_cols = data[0] & 0x3F;
 
-  expander_rot = (data[0] & 0x20 << 2) | (data[1] & 0x03);
+  expander_rot = (data[1] & 0x03) | ((data[0] & 0x40) >> 4); // switch, A, B
 }
 
 /* Rotary Encoder Scanning */
@@ -280,8 +282,8 @@ void scan_rotary() {
   }
 
   // Expander rotary encoder
-  int exCLK = (expander_rot & 0x02) >> 1;
-  int exDT  = (expander_rot & 0x01);
+  int exCLK  = (expander_rot & 0x01);
+  int exDT = (expander_rot & 0x02) >> 1;
   int exSW  = (expander_rot & 0x04) >> 2;
 
   // if CLK pin has changed, then the rotary encoder has turned
@@ -436,7 +438,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  //HAL_Delay(2000);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -448,6 +450,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USB_DEVICE_Init();
   MX_TIM4_Init();
   MX_TIM6_Init();
@@ -491,7 +494,7 @@ int main(void)
 
   while (1)
   {
-	  //draw the counter to the lcd
+//	  //draw the counter to the lcd
 	  if (writeScreen) {
 		  sprintf(buffer1, "%-3d", (int)wpm);
 	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
@@ -538,6 +541,11 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 3;
+
+  /* USER CODE BEGIN SystemClock_Init 0 */
+  HAL_Delay(500);
+  /* USER CODE END SystemClock_Init 0 */
+
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -597,6 +605,9 @@ static void MX_I2C2_Init(void)
   uint8_t data[5] = {0x00, 0x7F, 0x03, 0x7F, 0x03}; // addr 0x00 with data 0x7F
   HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 4, 1000);
 
+  uint8_t data2[2] = {0x0C, 0x3F};
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+
 
   /* USER CODE END I2C2_Init 2 */
 
@@ -625,7 +636,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -762,6 +773,22 @@ static void MX_TIM7_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -778,7 +805,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, ROW0_Pin|ROW1_Pin|ROW2_Pin|ROW3_Pin
@@ -794,12 +824,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin */
-  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin;
+  /*Configure GPIO pins : LCD1_DC_Pin LCD1_CS_Pin LCD2_DC_Pin */
+  GPIO_InitStruct.Pin = LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD2_CS_Pin LCD2_RST_Pin LCD1_RST_Pin */
+  GPIO_InitStruct.Pin = LCD2_CS_Pin|LCD2_RST_Pin|LCD1_RST_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ROW0_Pin ROW1_Pin ROW2_Pin ROW3_Pin
                            ROW4_Pin ROW5_Pin ROW6_Pin */
