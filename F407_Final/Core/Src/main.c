@@ -50,8 +50,8 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c2;
 
-SPI_HandleTypeDef hspi1;
-DMA_HandleTypeDef hdma_spi1_tx;
+SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim6;
@@ -65,10 +65,22 @@ unsigned int charsInCycle = 0;
 unsigned int numCycles = 0;
 unsigned int dryCycles = 0;
 float wpm = 0;
+int writeScreen = 1;
 
 // row-column scanning
 int keycodeNum = 1;
 int row = 0;
+int local_cols = 0;
+int expander_cols = 0;
+int expander_rot = 0; // 3 bits: switch, A, B
+int exLastCLK = 0;
+int exRotLock = 0;
+
+// rotary direction
+int currentStateCLK = 0;
+int lastStateCLK = 0;
+int currentStateDT = 0;
+int rotLock = 0;
 
 // USBD struct
 extern USBD_HandleTypeDef hUsbDeviceFS;
@@ -97,18 +109,18 @@ static void MX_TIM4_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
 static void MX_I2C2_Init(void);
-static void MX_SPI1_Init(void);
+static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
 // local keypad scanning
 void scan_keypad();
 void set_rows();
-int get_cols();
+void get_cols();
 
 // rotary encoder scanning
 void scan_rotary();
 
 // usb functions
-void add_keypress(char key);
+void add_keypress(uint16_t key);
 void record_keys();
 
 // LCD functions
@@ -122,10 +134,8 @@ void switch_lcd();
 void scan_keypad() {
   set_rows();
 
-  // read the columns
-  int local_cols = get_cols();
-  //int local_cols = all_cols & 0x0F;
-  //int expander_cols = (all_cols & 0xF0) >> 4;
+  // update the global variables for col values
+  get_cols();
 
   // scan local cols
   for(int i = 0; i < nCols1; i++) {
@@ -146,83 +156,172 @@ void scan_keypad() {
   }
 
   // scan expander cols
-//  for(int i = 0; i < nCols2; i++) {
-//    if(expander_cols & (1 << i)) {
-//      if (keypresses2[row][i] != 1) {
-//    	  keypresses2[row][i] = 1;
-//    	  // WPM timer not enabled
-//    	  if (!(TIM1->CR1 && TIM_CR1_CEN)) {
-//    		  HAL_TIM_Base_Start_IT(&htim7);
-//    	  }
-//    	  charCount++;
-//    	  charsInCycle++;
-//      }
-//    }
-//    else {
-//      keypresses2[row][i] = 0;
-//    }
-//
-//  }
+  for(int i = 0; i < nCols2; i++) {
+    if(expander_cols & (1 << i)) {
+      if (keypresses2[row][i] != 1) {
+    	  keypresses2[row][i] = 1;
+    	  // WPM timer not enabled
+    	  if (!(TIM1->CR1 && TIM_CR1_CEN)) {
+    		  HAL_TIM_Base_Start_IT(&htim7);
+    	  }
+    	  charCount++;
+    	  charsInCycle++;
+      }
+    }
+    else {
+      keypresses2[row][i] = 0;
+    }
+
+  }
 
 }
 
 void set_rows() {
   // update row value
   row = (row + 1) % nRows1;
+  HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_SET);
 
   // use global variable row to set the correct row to low and last row back to high
   switch(row) {
     case 0:
-      HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_RESET);
       break;
     case 1:
-      HAL_GPIO_WritePin(GPIOD, ROW0_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_RESET);
       break;
     case 2:
-      HAL_GPIO_WritePin(GPIOD, ROW1_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_RESET);
       break;
     case 3:
-      HAL_GPIO_WritePin(GPIOD, ROW2_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_RESET);
       break;
     case 4:
-      HAL_GPIO_WritePin(GPIOD, ROW3_Pin, GPIO_PIN_SET);
       HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_RESET);
       break;
     case 5:
-      HAL_GPIO_WritePin(GPIOD, ROW4_Pin, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_RESET);
 	  break;
     case 6:
-      HAL_GPIO_WritePin(GPIOD, ROW5_Pin, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(GPIOD, ROW6_Pin, GPIO_PIN_RESET);
 	  break;
   }
 
-  // TODO: change this logic to work with all 7 rows on Side B.
-  // Code below works for the breadboard prototype
-  // set current row to low and others to high on gpio expander keypad
-//  uint8_t data[2] = {0x0A, ~( 8 >> row )};
-//  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+  // ! GPIOB2 - GPIOB7 maps to row0 - row5, GPIOA7 maps to row6
+  if (row != 6){
+	  uint8_t data[3] = {0x14, ~( 0x04 << row ), ~0}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+  } else {
+	  uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+  }
 }
 
-int get_cols() {
+void get_cols() {
   // get the value of all columns as one int from the GPIO register
   // PD7-4
-  int local_cols = ~(GPIOD->IDR >> 7) & 0x3F;
+  local_cols = ~(GPIOD->IDR >> 7) & 0x3F;
 
   // read the GPIO expander columns
-  //uint8_t data[1] = {0x09};
-//  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
-//  HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+  // ! GPIOA0 - GPIOA5 maps to col0 - col5
+  uint8_t data[2] = {0x12, 0x00}; // addr 0x12 for IOCON.BANK = 0, 0x09 for IOCON.BANK = 1
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+  HAL_I2C_Master_Receive(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
 
-  //int expander_cols = data[0] & 0xF0;
+  expander_cols = data[0] & 0x3F;
 
-  return local_cols;// | expander_cols;
+  expander_rot = (data[1] & 0x03) | ((data[0] & 0x40) >> 4); // switch, A, B
 }
+
+/* Rotary Encoder Scanning */
+void scan_rotary() {
+  currentStateCLK = HAL_GPIO_ReadPin(GPIOD, ENC_A_Pin);
+
+  // if CLK pin has changed, then the rotary encoder has turned
+  if (currentStateCLK != lastStateCLK && rotLock == 0 ) {// && rotLock == 0) {
+    // if the DT state is different, then the encoder is rotating counter-clockwise
+    currentStateDT = HAL_GPIO_ReadPin(GPIOD, ENC_B_Pin);
+
+    if (currentStateDT != currentStateCLK) {
+      // Volume Down
+      rotary_keypresses1[1] = 1;
+    }
+
+    // otherwise, it is turning clockwise
+    else if (currentStateDT == currentStateCLK) {
+      // Volume Up
+      rotary_keypresses1[2] = 1;
+    }
+    rotLock++;
+
+  }
+  else if (rotLock == 0) {
+	  rotary_keypresses1[1] = 0;
+	  rotary_keypresses1[2] = 0;
+  }
+
+  lastStateCLK = currentStateCLK;
+
+  // rotLock allows the rotary encoder's inputs to settle over a few extra clock cycles
+  if(rotLock != 0) {
+    rotLock = (rotLock + 1) % 150;
+  }
+
+  // if the state is low (default is high), turn toggle the LED
+  if (HAL_GPIO_ReadPin(GPIOD, ENC_SW_Pin) == 0) {
+    // Volume Mute Toggle
+	  rotary_keypresses1[0] = 1;
+  }
+  else {
+	  rotary_keypresses1[0] = 0;
+  }
+
+  // Expander rotary encoder
+  int exCLK  = (expander_rot & 0x01);
+  int exDT = (expander_rot & 0x02) >> 1;
+  int exSW  = (expander_rot & 0x04) >> 2;
+
+  // if CLK pin has changed, then the rotary encoder has turned
+  if (exCLK != exLastCLK && exRotLock == 0 ) {// && rotLock == 0) {
+	  // if the DT state is different, then the encoder is rotating counter-clockwise
+
+	  if (exDT != exCLK) {
+		// Volume Down
+		rotary_keypresses2[1] = 1;
+	  }
+
+	  // otherwise, it is turning clockwise
+	  else if (exDT == exCLK) {
+		// Volume Up
+		rotary_keypresses2[2] = 1;
+	  }
+	  exRotLock++;
+
+  }
+  else if (exRotLock == 0) {
+	  rotary_keypresses2[1] = 0;
+	  rotary_keypresses2[2] = 0;
+  }
+
+  exLastCLK = exCLK;
+
+  if(exRotLock != 0) {
+      exRotLock = (exRotLock + 1) % 150;
+  }
+
+  if(exSW)
+	  rotary_keypresses2[0] = 1;
+  else
+	  rotary_keypresses2[0] = 0;
+
+
+}
+/* END Rotary Encoder Scanning */
 
 /* USB Functions */
 void record_keys() {
@@ -240,52 +339,60 @@ void record_keys() {
   }
 
   // Add GPIO Expander keypresses
-//  for(int i = 0; i < nRows2; i++) {
-//	  for(int j = 0; j < nCols2; j++) {
-//		  if(keypresses2[i][j] == 1) {
-//			  add_keypress(layout2[i][j]);
-//		  }
-//	  }
-//  }
+  for(int i = 0; i < nRows2; i++) {
+	  for(int j = 0; j < nCols2; j++) {
+		  if(keypresses2[i][j] == 1) {
+			  add_keypress(layout2[i][j]);
+		  }
+	  }
+  }
 
   // Add Rotary Encoder keypresses
-//  for(int i = 0; i < 4; i++) {
-//	  if(rotary_keypresses[i] == 1)
-//		  add_keypress(rotary_keys[i]);
-//  }
+  for(int i = 0; i < 4; i++) {
+	  if(rotary_keypresses1[i] == 1)
+		  add_keypress(rotary_keys1[i]);
+  }
+
+  // Add Expander Rotary Encoder
+  for(int i = 0; i < 4; i++) {
+	  if(rotary_keypresses2[i] == 1)
+		  add_keypress(rotary_keys2[i]);
+   }
 
 }
 
-void add_keypress(char key) {
+void add_keypress(uint16_t key) {
 
-	if(key == (char)KEY_LSHIFT) {
-		keyboardhid.MODIFIER = 2;
+	if( (key & 0xFF00) == 0xFF00) {
+		int shift = key & 0xFF;
+		keyboardhid.MODIFIER |= (1<<shift);
+
 		return;
 	}
 
 	switch(keycodeNum) {
-			case 1:
-			  keyboardhid.KEYCODE1 = key;
-			  break;
-			case 2:
-			  keyboardhid.KEYCODE2 = key;
-			  break;
-			case 3:
-			  keyboardhid.KEYCODE3 = key;
-			  break;
-			case 4:
-			  keyboardhid.KEYCODE4 = key;
-			  break;
-			case 5:
-			  keyboardhid.KEYCODE5 = key;
-			  break;
-			case 6:
-			  keyboardhid.KEYCODE6 = key;
-			  break;
-			default:
-				break;
-		  }
-		  keycodeNum++;
+		case 1:
+		  keyboardhid.KEYCODE1 = key;
+		  break;
+		case 2:
+		  keyboardhid.KEYCODE2 = key;
+		  break;
+		case 3:
+		  keyboardhid.KEYCODE3 = key;
+		  break;
+		case 4:
+		  keyboardhid.KEYCODE4 = key;
+		  break;
+		case 5:
+		  keyboardhid.KEYCODE5 = key;
+		  break;
+		case 6:
+		  keyboardhid.KEYCODE6 = key;
+		  break;
+		default:
+			break;
+	}
+	keycodeNum++;
 
 }
 /* END USB Functions */
@@ -293,18 +400,16 @@ void add_keypress(char key) {
 /* LCD Functions */
 void switch_lcd() {
   // switch LCD_*_PIN and LCD_*_PORT between LCD1_* and LCD2_*
-  if(LCD_CS_PIN == LCD2_CS_PIN) {
-	  LCD_CS_PORT = LCD1_CS_PORT;
-	  LCD_CS_PIN = LCD1_CS_PIN;
-	  LCD_DC_PORT = LCD1_DC_PORT;
-	  LCD_DC_PIN = LCD1_DC_PIN;
-	  LCD_RST_PORT = LCD1_RST_PORT;
-	  LCD_RST_PIN = LCD1_RST_PIN;
+  if(LCD_DC_PIN == LCD2_DC_PIN) {
+	LCD_CS_PORT = LCD1_CS_PORT;
+	LCD_CS_PIN = LCD1_CS_PIN;
+	LCD_DC_PORT = LCD1_DC_PORT;
+	LCD_DC_PIN = LCD1_DC_PIN;
+	LCD_RST_PORT = LCD1_RST_PORT;
+	LCD_RST_PIN = LCD1_RST_PIN;
   }
   else {
-
-
-    LCD_CS_PORT = LCD2_CS_PORT;
+	LCD_CS_PORT = LCD2_CS_PORT;
 	LCD_CS_PIN = LCD2_CS_PIN;
 	LCD_DC_PORT = LCD2_DC_PORT;
 	LCD_DC_PIN = LCD2_DC_PIN;
@@ -333,7 +438,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  //HAL_Delay(2000);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -350,27 +455,30 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  //MX_I2C2_Init();
-  //MX_SPI1_Init();
+  MX_I2C2_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize the LCDs
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  switch_lcd();
-//  ILI9341_Init();
-//  ILI9341_SetRotation(SCREEN_VERTICAL_1);
-//  ILI9341_FillScreen(WHITE);
-//
-//  char writeBuff[20];
-//  sprintf(writeBuff, "Words per minute: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
-//  sprintf(writeBuff, "Number of turns: ");
-//  ILI9341_DrawText(writeBuff, FONT4, 25, 110, BLACK, WHITE);
-//  switch_lcd();
+  // Left Screen
+  char writeBuff[20];
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Number of turns: ");
+  ILI9341_DrawText(writeBuff, FONT6, 25, 110, BLACK, WHITE);
+
+  // Right Screen
+  switch_lcd();
+  ILI9341_Init();
+  ILI9341_SetRotation(SCREEN_VERTICAL_1);
+  ILI9341_FillScreen(BLUE);
+  sprintf(writeBuff, "Words");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
+  sprintf(writeBuff, "Per");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
+  sprintf(writeBuff, "Minute:");
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
@@ -381,22 +489,25 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  //char buffer1[10];
-  //char buffer2[10];
+  char buffer1[10];
+  char buffer2[10];
 
   while (1)
   {
-	// draw the counter to the lcd
-//	sprintf(buffer1, "%3d", (int)wpm);
-//	ILI9341_DrawText(buffer1, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
-//
-//	// draw the counter to the lcd
-//	sprintf(buffer2, "%d", turn_counter);
-//	ILI9341_DrawText(buffer2, FONT4, 190, 110, BLACK, WHITE);
-//
-//	switch_lcd();
+//	  //draw the counter to the lcd
+	  if (writeScreen) {
+		  sprintf(buffer1, "%-3d", (int)wpm);
+	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
+	  	  writeScreen = 0;
+	  }
+
+	  switch_lcd();
+
+	  // draw the counter to the lcd
+	  sprintf(buffer2, "%d", 2);
+	  ILI9341_DrawText(buffer2, FONT6, 190, 110, BLACK, WHITE);
+
+	  switch_lcd();
 
     /* USER CODE END WHILE */
 
@@ -430,6 +541,11 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 3;
+
+  /* USER CODE BEGIN SystemClock_Init 0 */
+  HAL_Delay(500);
+  /* USER CODE END SystemClock_Init 0 */
+
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -480,45 +596,58 @@ static void MX_I2C2_Init(void)
   }
   /* USER CODE BEGIN I2C2_Init 2 */
 
+  // Set Rows to outputs, cols to inputs
+  // Reverse polarity of the input pins since we are using active low
+  // 1: input/reverse polarity
+  // 0: output/regular polarity
+  // GPIOA: 0111 1111
+  // GPIOB: 0000 0011
+  uint8_t data[5] = {0x00, 0x7F, 0x03, 0x7F, 0x03}; // addr 0x00 with data 0x7F
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 4, 1000);
+
+  uint8_t data2[2] = {0x0C, 0x3F};
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+
+
   /* USER CODE END I2C2_Init 2 */
 
 }
 
 /**
-  * @brief SPI1 Initialization Function
+  * @brief SPI2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_SPI1_Init(void)
+static void MX_SPI2_Init(void)
 {
 
-  /* USER CODE BEGIN SPI1_Init 0 */
+  /* USER CODE BEGIN SPI2_Init 0 */
 
-  /* USER CODE END SPI1_Init 0 */
+  /* USER CODE END SPI2_Init 0 */
 
-  /* USER CODE BEGIN SPI1_Init 1 */
+  /* USER CODE BEGIN SPI2_Init 1 */
 
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN SPI1_Init 2 */
+  /* USER CODE BEGIN SPI2_Init 2 */
 
-  /* USER CODE END SPI1_Init 2 */
+  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -650,12 +779,12 @@ static void MX_DMA_Init(void)
 {
 
   /* DMA controller clock enable */
-  __HAL_RCC_DMA2_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA2_Stream3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
 
 }
 
@@ -670,10 +799,10 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LCD1_DC_Pin|LCD1_CS_Pin|LCD2_DC_Pin, GPIO_PIN_RESET);
@@ -740,27 +869,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		scan_keypad();
 
 		/* Rotary Encoder */
-		//scan_rotary();
+		scan_rotary();
 	}
 
 	else if (htim == &htim7) {
 //		// words per minute
 //		// check to see if any keys pressed
-//		if (charsInCycle == 0) {
-//			dryCycles++;
-//			// shut down if 5 cycles with no presses
-//			if (dryCycles == 5) {
-//				charCount = 0;
-//				charsInCycle = 0;
-//				dryCycles = 0;
-//				numCycles = 0;
-//				HAL_TIM_Base_Stop_IT(&htim7);
-//			}
-//		}
-//		// calculate wpm
-//		numCycles++;
-//		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
-//		charsInCycle = 0;
+		if (charsInCycle == 0) {
+			dryCycles++;
+			// shut down if 5 cycles with no presses
+			if (dryCycles == 5) {
+				charCount = 0;
+				charsInCycle = 0;
+				dryCycles = 0;
+				numCycles = 0;
+				HAL_TIM_Base_Stop_IT(&htim7);
+			}
+		}
+		// calculate wpm
+		numCycles++;
+		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
+		charsInCycle = 0;
+		writeScreen = 1;
 
 	}
 }
