@@ -65,7 +65,9 @@ unsigned int charsInCycle = 0;
 unsigned int numCycles = 0;
 unsigned int dryCycles = 0;
 float wpm = 0;
+float cpm = 0;
 int writeScreen = 1;
+long totalChars = 0;
 
 // row-column scanning
 int keycodeNum = 1;
@@ -147,6 +149,7 @@ void scan_keypad() {
     	    	HAL_TIM_Base_Start_IT(&htim7);
     	    }
     	    charCount++;
+    	    totalChars++;
     	    charsInCycle++;
     	}
     }
@@ -165,6 +168,7 @@ void scan_keypad() {
     		  HAL_TIM_Base_Start_IT(&htim7);
     	  }
     	  charCount++;
+    	  totalChars++;
     	  charsInCycle++;
       }
     }
@@ -214,11 +218,11 @@ void set_rows() {
 
   // ! GPIOB2 - GPIOB7 maps to row0 - row5, GPIOA7 maps to row6
   if (row != 6){
-	  uint8_t data[3] = {0x14, ~( 0x04 << row ), ~0}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
-	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+	  uint8_t data[3] = {0x14, ~0, ~( 0x04 << row )}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 3, 1000);
   } else {
-	  uint8_t data[3] = {0x14, ~0, ~0x80}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
-	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 2, 1000);
+	  uint8_t data[3] = {0x14, ~0x80, ~0}; // addr 0x14 for IOCON.BANK = 0, 0x0A for IOCON.BANK = 1
+	  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 3, 1000);
   }
 }
 
@@ -464,21 +468,31 @@ int main(void)
   char writeBuff[20];
   ILI9341_Init();
   ILI9341_SetRotation(SCREEN_VERTICAL_1);
-  ILI9341_FillScreen(BLUE);
-  sprintf(writeBuff, "Number of turns: ");
-  ILI9341_DrawText(writeBuff, FONT6, 25, 110, BLACK, WHITE);
+  ILI9341_FillScreen(BLACK);
+//  sprintf(writeBuff, "Characters");
+//  ILI9341_DrawText(writeBuff, FONT5, 25, 85, WHITE, BLACK);
+//  sprintf(writeBuff, "Pressed ");
+//  ILI9341_DrawText(writeBuff, FONT5, 25, 135, WHITE, BLACK);
+  sprintf(writeBuff, "Characters");
+  ILI9341_DrawText(writeBuff, FONT5, 10, 85, WHITE, BLACK);
+  sprintf(writeBuff, "Per");
+  ILI9341_DrawText(writeBuff, FONT5, 10, 135, WHITE, BLACK);
+  sprintf(writeBuff, "Minute:");
+  ILI9341_DrawText(writeBuff, FONT5, 10, 185, WHITE, BLACK);
+  sprintf(writeBuff, "Total Pressed:");
+  ILI9341_DrawText(writeBuff, FONT4, 10, 290, WHITE, BLACK);
 
   // Right Screen
   switch_lcd();
   ILI9341_Init();
   ILI9341_SetRotation(SCREEN_VERTICAL_1);
-  ILI9341_FillScreen(BLUE);
+  ILI9341_FillScreen(BLACK);
   sprintf(writeBuff, "Words");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 85, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 85, WHITE, BLACK);
   sprintf(writeBuff, "Per");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 135, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 135, WHITE, BLACK);
   sprintf(writeBuff, "Minute:");
-  ILI9341_DrawText(writeBuff, FONT5, 25, 185, BLACK, WHITE);
+  ILI9341_DrawText(writeBuff, FONT5, 25, 185, WHITE, BLACK);
 
   // start the timer interrupt
   HAL_TIM_Base_Start_IT(&htim4);
@@ -497,17 +511,20 @@ int main(void)
 //	  //draw the counter to the lcd
 	  if (writeScreen) {
 		  sprintf(buffer1, "%-3d", (int)wpm);
-	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, BLACK, WHITE);
+	  	  ILI9341_DrawText(buffer1, FONT5, 	165, 185, WHITE, BLACK);
+
+	  	  switch_lcd();
+
+	  	  sprintf(buffer2, "%-4d", (int)cpm);
+	  	  ILI9341_DrawText(buffer2, FONT5, 150, 185, WHITE, BLACK);
+
+
+	  	  sprintf(buffer2, "%9ld", totalChars);
+	  	  ILI9341_DrawText(buffer2, FONT4, 140, 290, WHITE, BLACK);
 	  	  writeScreen = 0;
+
+	  	  switch_lcd();
 	  }
-
-	  switch_lcd();
-
-	  // draw the counter to the lcd
-	  sprintf(buffer2, "%d", 2);
-	  ILI9341_DrawText(buffer2, FONT6, 190, 110, BLACK, WHITE);
-
-	  switch_lcd();
 
     /* USER CODE END WHILE */
 
@@ -541,11 +558,6 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 3;
-
-  /* USER CODE BEGIN SystemClock_Init 0 */
-  HAL_Delay(500);
-  /* USER CODE END SystemClock_Init 0 */
-
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -603,10 +615,11 @@ static void MX_I2C2_Init(void)
   // GPIOA: 0111 1111
   // GPIOB: 0000 0011
   uint8_t data[5] = {0x00, 0x7F, 0x03, 0x7F, 0x03}; // addr 0x00 with data 0x7F
-  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 4, 1000);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 5, 1000);
 
+  // internal pull up
   uint8_t data2[2] = {0x0C, 0x3F};
-  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data, 1, 1000);
+  HAL_I2C_Master_Transmit(&hi2c2, GPIOEX_ADDR, data2, 2, 1000);
 
 
   /* USER CODE END I2C2_Init 2 */
@@ -859,7 +872,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	    // send HID report
 		record_keys();
 		USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t*) &keyboardhid, sizeof(keyboardhid));
-
 	}
 
 	// Keypad scanning
@@ -889,6 +901,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		// calculate wpm
 		numCycles++;
 		wpm = (charCount / 5.0f) / ((2.0f * numCycles) / 60.0f);
+		cpm = (charCount) / ((2.0f * numCycles) / 60.0f);
 		charsInCycle = 0;
 		writeScreen = 1;
 

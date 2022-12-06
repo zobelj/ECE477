@@ -55,6 +55,7 @@
 #define KEY_PLUS        0x2E
 #define KEY_LBRACKET    0x2F
 #define KEY_RBRACKET    0x30
+#define KEY_BSLASH		0x31
 #define KEY_COLON       0x33
 #define KEY_QUOTE       0x34
 #define KEY_TILDE		0x35
@@ -63,19 +64,30 @@
 #define KEY_FSLASH      0x38
 #define KEY_CAPSLOCK	0x39
 
-#define KEY_DELETE      0x4C
+#define KEY_F1			0x3A
+#define KEY_F2			0x3B
+#define KEY_F3			0x3C
+#define KEY_F4			0x3D
 
+#define KEY_PRINTSCREEN 0x46
+#define KEY_INSERT		0x49
+#define KEY_HOME		0x4A
+#define KEY_PAGEUP		0x4B
+#define KEY_DELETE      0x4C
+#define KEY_END			0x4D
+#define KEY_PAGEDOWN	0x4E
 #define KEY_RIGHT 		0x4F
 #define KEY_LEFT  		0x50
 #define KEY_DOWN  		0x51
 #define KEY_UP    		0x52
 
+#define KEY_CUT			0x7B
+#define KEY_COPY		0x7C
+#define KEY_PASTE		0x7D
 
 #define KEY_MUTE    	0x7F
 #define KEY_VOLUP   	0x80
 #define KEY_VOLDOWN 	0x81
-
-#define KEY_PLAYPAUSE 	0x48
 
 // modifiers. FF prefix to differentiate
 #define KEY_LCTRL   	0xFF00
@@ -86,6 +98,14 @@
 #define KEY_RSHIFT  	0xFF05
 #define KEY_RALT    	0xFF06
 #define KEY_RGUI    	0xFF07
+
+
+#define MEDIA_PLAYPAUSE 0xE8
+#define MEDIA_PREVSONG	0xE9
+#define MEDIA_NEXTSONG	0xEA
+#define MEDIA_VOLUP		0xED
+#define MEDIA_VOLDOWN	0xEE
+#define MEDIA_MUTE		0xEF
 
 
 #endif /* INC_KEYCODES_H_ */
